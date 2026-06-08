@@ -1,0 +1,228 @@
+/**
+ * Product edit page — SKU field icon strip and helpers.
+ *
+ * WooCommerce layout context:
+ *   <p class="form-field _sku_field">        (padding-left: 162px)
+ *     <label>SKU</label>                     (float:left; margin-left:-150px)
+ *     <a class="woocommerce-help-tip">?</a>  (inline-block; 16×16 px; vertical-align:middle)
+ *     <input class="short" id="_sku">        (float:left; width:50%)
+ *     <span class="ffxf-sku-icons">…</span>  ← OUR STRIP (inline-flex)
+ *   </p>
+ *
+ * Rule: the icon strip is a <span> inserted via insertAdjacentElement('afterend', …)
+ * right after the <input>. Because the input is float:left, and our span is inline,
+ * the span ends up on the same line if we clear correctly. We force it via
+ * display:inline-flex and vertical-align:middle.
+ *
+ * @package EasyAutoSkuGenerator
+ */
+
+/* -------------------------------------------------------------------------
+ * Icon strip
+ *
+ * WooCommerce's ._sku_field uses float layout. An inline child with height
+ * greater than the field's own line-height expands the row and creates a
+ * visible gap between the SKU and GTIN rows.
+ *
+ * Fix: give ._sku_field position:relative, then pull the strip out of flow
+ * with position:absolute so it contributes zero block-axis height.
+ * -------------------------------------------------------------------------*/
+
+.ffxf-sku-icons {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	vertical-align: middle;
+	margin-left: 4px;
+	line-height: 1;
+	white-space: nowrap;
+}
+
+/* Every icon link */
+.ffxf-sku-icons .ffxf-sku-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 18px;
+	height: 18px;
+	margin: 0;
+	padding: 0;
+	color: #555;
+	text-decoration: none;
+	line-height: 1;
+	flex-shrink: 0;
+	vertical-align: middle;
+}
+
+/* Dashicons inside icon links */
+.ffxf-sku-icons .ffxf-sku-icon .dashicons {
+	width: 18px;
+	height: 18px;
+	font-size: 18px;
+	line-height: 18px;
+	display: block;
+}
+
+/* Pointer cursor — prevent WP global "?" cursor from woocommerce-help-tip styles */
+.ffxf-sku-icons .ffxf-sku-icon,
+.ffxf-sku-icons a.ffxf-sku-icon {
+	cursor: pointer;
+}
+
+/* Remove WP focus ring — tooltips used instead */
+.ffxf-sku-icons .ffxf-sku-icon:focus {
+	color: inherit;
+	box-shadow: none;
+	outline: 0 solid transparent;
+}
+
+/* -------------------------------------------------------------------------
+ * Pulsing warning icon (forum link)
+ * Uses display:inline-grid so the ring and circle share the same grid cell
+ * and are perfectly centred without any absolute positioning.
+ * -------------------------------------------------------------------------*/
+
+.ffxf-sku-icon--pulse {
+	display: inline-grid !important;
+	place-items: center;
+	overflow: visible;
+	width: 18px !important;
+	height: 18px !important;
+}
+
+/* Animated halo ring */
+.ffxf-sku-icons .ffxf-pulse-ring {
+	grid-area: 1 / 1;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	box-shadow: 0 0 0 0 rgba(255, 199, 32, 0.6);
+	animation: ffxf-pulse 2s ease-out infinite;
+	pointer-events: none;
+}
+
+/* Yellow filled circle */
+.ffxf-sku-icons .ffxf-icon-circle {
+	grid-area: 1 / 1;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background: #ffc720;
+}
+
+/* Warning dashicon inside the circle */
+.ffxf-sku-icons .ffxf-icon-circle > .dashicons {
+	font-size: 12px;
+	line-height: 12px;
+	width: 12px;
+	height: 12px;
+}
+
+@keyframes ffxf-pulse {
+	0%   { box-shadow: 0 0 0 0    rgba(255, 199, 32, 0.6); }
+	65%  { box-shadow: 0 0 0 7px  rgba(255, 199, 32, 0);   }
+	100% { box-shadow: 0 0 0 0    rgba(255, 199, 32, 0);   }
+}
+
+/* -------------------------------------------------------------------------
+ * Ghost placeholder — warning icon slot when pulse is hidden this load.
+ * Keeps the strip width stable so other icons don't jump sideways.
+ * -------------------------------------------------------------------------*/
+
+.ffxf-sku-icon--ghost {
+	display: inline-flex;
+	width: 18px;
+	height: 18px;
+	flex-shrink: 0;
+	visibility: hidden; /* invisible but occupies space */
+	pointer-events: none;
+}
+
+/* Static circle — shown after user has already clicked the forum link */
+.ffxf-sku-icon--static {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 18px;
+	height: 18px;
+	flex-shrink: 0;
+}
+
+.ffxf-sku-icon--static .ffxf-icon-circle {
+	opacity: 0.45; /* dimmed: already rated, just decorative */
+}
+
+/* -------------------------------------------------------------------------
+ * "Thank you" span shown after the user clicks the forum link
+ * -------------------------------------------------------------------------*/
+
+.ffxf-thanks {
+	display: inline-block;
+	font-size: 11px;
+	margin-left: 4px;
+	vertical-align: middle;
+	color: #46b450;
+}
+
+/* -------------------------------------------------------------------------
+ * SKU input highlight animation on re-generate
+ * -------------------------------------------------------------------------*/
+
+.animation_sku {
+	animation: sku-highlight 2.2s ease-in-out;
+}
+
+@keyframes sku-highlight {
+	0%   { border-color: #ddd; }
+	40%  { border-color: #46b450; }
+	100% { border-color: #ddd; }
+}
+
+/* -------------------------------------------------------------------------
+ * Previous-product info panel
+ * Wrapped in a <span> appended to <p._sku_field> — displayed as block below
+ * -------------------------------------------------------------------------*/
+
+.ffxf-prev-info-wrap {
+	display: block;
+	margin-top: 8px;
+}
+
+.ffxf-prev-info {
+	display: inline-flex;
+	align-items: flex-start;
+	gap: 6px;
+	width: 80%;
+	border: 1px dashed #ccc;
+	padding: 8px 10px;
+	line-height: 1.4;
+	font-size: 12px;
+}
+
+.ffxf-prev-info .dashicons {
+	font-size: 20px;
+	flex-shrink: 0;
+	margin-top: 1px;
+}
+
+/* Slug-mode info notice — same style */
+.ffxf-slug-notice {
+	display: inline-flex;
+	align-items: flex-start;
+	gap: 6px;
+	margin-top: 8px;
+	width: 80%;
+	border: 1px dashed #ccc;
+	padding: 8px 10px;
+	line-height: 1.4;
+	font-size: 12px;
+}
+
+.ffxf-slug-notice .dashicons {
+	font-size: 20px;
+	flex-shrink: 0;
+	margin-top: 1px;
+}

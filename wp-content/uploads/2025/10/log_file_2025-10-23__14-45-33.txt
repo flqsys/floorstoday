@@ -1,0 +1,78 @@
+
+---Downloaded files---
+The import files for: Floens Demo Import were successfully downloaded!
+Initial max execution time = 360
+Files info:
+Site URL = https://floorstoday.ca
+Data file = /var/www/html/wp-content/themes/floens/inc/demo-data/sample-data.xml
+Widget file = /var/www/html/wp-content/themes/floens/inc/demo-data/widgets.wie
+Customizer file = /var/www/html/wp-content/themes/floens/inc/demo-data/customizer.dat
+Redux files:
+not defined!
+
+------
+New AJAX call!
+
+
+------
+New AJAX call!
+
+
+------
+New AJAX call!
+
+
+------
+New AJAX call!
+
+
+------
+New AJAX call!
+
+
+------
+New AJAX call!
+
+
+------
+New AJAX call!
+
+
+------
+New AJAX call!
+
+
+------
+New AJAX call!
+
+
+------
+New AJAX call!
+
+
+------
+New AJAX call!
+
+
+---Importing widgets---
+Sidebar : 
+
+Block - No Title - Imported
+Custom Recent Posts - Recent Posts - Imported
+Block - No Title - Imported
+Block - No Title - Imported
+Block - No Title - Imported
+
+Shop Sidebar : 
+
+Block - No Title - Imported
+Block - No Title - Imported
+Block - No Title - Imported
+
+
+
+---Importing customizer settings---
+Customizer settings import finished!
+
+---ocdi/after_import---
+

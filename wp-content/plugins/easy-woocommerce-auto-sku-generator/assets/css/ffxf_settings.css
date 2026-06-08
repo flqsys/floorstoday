@@ -1,0 +1,901 @@
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 15px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    -webkit-transition: opacity .2s;
+    transition: opacity .2s;
+}
+
+p.description {
+    position: relative;
+    z-index: 9;
+}
+
+span.skuautoffxf_separator {
+    font-weight: 700;
+    color: #000;
+}
+
+div#skuautoffxfid-description {
+    z-index: 9;
+    position: relative;
+}
+
+.wrapper_setting_ffxf h2 {
+    z-index: 9;
+    position: relative;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+.center {
+    text-align: center;
+}
+
+.frame_modal_link {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.recomendated_plugin_block h4 {
+    margin: 0;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+div#woocommerce_awooc_call_to_rate a {
+    z-index: 9;
+    display: inline-block;
+    position: relative;
+}
+
+/* Review button (replaces old donate button) */
+.ffxf-review-btn {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 9px 20px;
+    background-color: #2271b1;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background-color 0.15s ease;
+}
+
+.ffxf-review-btn:hover,
+.ffxf-review-btn:focus {
+    background-color: #135e96;
+    color: #fff;
+}
+
+div#hidden-content {
+    width: 90%;
+    height: 90%;
+}
+
+div#hidden-content iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.wrapper_setting_ffxf {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+
+table.form-table th {
+    width: 27%;
+}
+
+.wrapper_setting_ffxf > .block_left {
+    -webkit-box-ordinal-group: 3;
+    -ms-flex-order: 2;
+    order: 2;
+    width: 60%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: space-between;
+    -webkit-box-orient: vertical;
+    margin-top: 20px;
+    margin-right: 15px;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+
+}
+
+.wrapper_setting_ffxf > .block_left > div {
+    width: 49%;
+}
+
+.wrapper_setting_ffxf > div:nth-child(2) {
+    -webkit-box-ordinal-group: 2;
+    -ms-flex-order: 1;
+    order: 1;
+    width: 40%;
+    position: relative;
+    min-width: 255px;
+    border: 1px solid #e5e5e5;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+    background: #fff;
+    padding: 15px;
+    margin-top: 20px;
+    margin-right: 15px;
+}
+.air-join {
+    background: #607D8B;
+    border-radius: 4px;
+    padding: 10px;
+    color: #fff;
+    text-decoration: none;
+    margin: 10px 0 17px 0;
+    display: inline-block;
+}
+.air-join:hover, .air-join:focus{
+    background: #333;
+    color: #fff;
+}
+
+.postbox__ffxf {
+    width: 100%;
+}
+
+.wrapper_setting_ffxf .clear {
+    display: none;
+}
+
+.inside > span.dashicons,
+.inside > span.dashicons-before:before {
+    font-size: 221px;
+    position: absolute;
+    z-index: 1;
+    color: #f1f1f1;
+    right: 0;
+    width: 221px;
+    height: 221px;
+}
+
+.inside h2,
+.inside p,
+.inside div,
+.wrapper_setting_ffxf label,
+.wrapper_setting_ffxf input,
+.wrapper_setting_ffxf span {
+    z-index: 2;
+    position: relative;
+}
+
+
+.mass_generate {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 0;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+@media (min-width: 1595px) {
+
+    .mass_generate {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        padding: 0;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }
+
+}
+
+.inside hr {
+    border-top: 1px solid #8e8e8e;
+    z-index: 9;
+    position: relative;
+    margin: 15px 0;
+}
+
+a.thickbox.open-plugin-details-ffxf-modal {
+    border-bottom: 1px dashed #2c8bb9;
+    text-decoration: none;
+}
+
+.my_generic {
+    font-size: 350px;
+    position: absolute !important;
+    z-index: 1;
+    color: #f1f1f1;
+    right: 0;
+    width: 350px;
+    height: 350px;
+}
+
+.my_generic_two {
+    -webkit-animation-name: rotation_generic;
+    -webkit-animation-duration: 50s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: rotation_generic;
+    -moz-animation-duration: 50s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -o-animation-name: rotation_generic;
+    -o-animation-duration: 50s;
+    -o-animation-iteration-count: infinite;
+    -o-animation-timing-function: linear;
+    animation-name: rotation_generic;
+    animation-duration: 50s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@-webkit-keyframes rotation_generic {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotation_generic {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.recomendated_plugin_block {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.recomendated_plugin_block > div {
+    padding: 0px 15px 0px 0;
+}
+
+.recomendated_plugin_block img {
+    max-width: 50px;
+}
+
+.recomendated_plugin_block p {
+    font-size: 11px;
+}
+
+#mainform > div > div:nth-child(2) > h2 {
+    font-size: 23px;
+    font-weight: 400;
+    margin: 0;
+    padding: 9px 0 4px 0;
+    line-height: 1.3;
+}
+
+
+/* ---- Modal body, centered layout ---- */
+.ffxf-modal-desc {
+    font-size: 13px;
+    color: #50575e;
+    text-align: center;
+    margin: 0 0 16px;
+    line-height: 1.5;
+}
+
+.ffxf-modal-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* ---- Options (checkboxes) ---- */
+.ffxf-modal-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 0 10px;
+    width: 100%;
+}
+
+.ffxf-modal-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 6px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.ffxf-modal-option label {
+    margin-bottom: 0;
+}
+
+/* ---- Batch size row ---- */
+.ffxf-batch-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 4px 0 0;
+    width: 100%;
+}
+
+.ffxf-batch-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-size: 12px;
+    color: #50575e;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+/* Override WooCommerce float on the tip icon inside our label */
+.ffxf-batch-label .ffxf-batch-tip {
+    float: none;
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    width: 16px;
+    height: 16px;
+}
+
+.ffxf-batch-note {
+    font-weight: 400;
+    color: #8c8f94;
+}
+
+.ffxf-batch-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.ffxf-batch-controls .small-text {
+    width: 54px;
+}
+
+.ffxf-batch-controls .ffxf-batch-hint-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 8px;
+    height: 30px;
+    font-size: 12px;
+    line-height: 28px;
+}
+
+.ffxf-batch-controls .ffxf-batch-hint-btn .dashicons {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+}
+
+/* Hint result text */
+.ffxf-batch-hint-result {
+    font-size: 11px;
+    color: #2271b1;
+    font-style: italic;
+    text-align: center;
+    width: 100%;
+    margin-top: 4px;
+}
+
+/* Status line (category count) */
+.ffxf-cat-status {
+    text-align: center;
+    font-size: 12px;
+    opacity: 0.8;
+    font-style: italic;
+    margin: 6px 0 0;
+}
+
+/* ==========================================================================
+ * Modal overlay + frame — WordPress admin style
+ * Matches WP media modal / ThickBox visual language:
+ * white panel, 1px border #dcdcde, subtle shadow, dark semi-transparent backdrop
+ * ========================================================================== */
+
+.ffxf-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 159900;
+    transition: opacity 0.2s ease, visibility 0.2s linear;
+}
+
+.ffxf-modal-overlay.state-show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Frame: centred flex container */
+.ffxf-modal-frame {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 159950;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.ffxf-modal-frame.state-appear {
+    visibility: visible;
+}
+
+.ffxf-modal-frame.state-appear .ffxf-modal-inset {
+    animation: ffxf-modal-in 0.2s ease forwards;
+    visibility: visible;
+}
+
+.ffxf-modal-frame.state-leave {
+    visibility: visible;
+}
+
+.ffxf-modal-frame.state-leave .ffxf-modal-inset {
+    animation: ffxf-modal-out 0.2s ease forwards;
+    visibility: visible;
+}
+
+/* Inner panel — WP admin card style */
+.ffxf-modal {
+    width: 100%;
+    max-width: 560px;
+}
+
+.ffxf-modal-inset {
+    position: relative;
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    visibility: hidden;
+    overflow: hidden;
+}
+
+/* Header bar — dark WP-style */
+.ffxf-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #1d2327;
+    border-bottom: 1px solid #dcdcde;
+}
+
+.ffxf-modal-header h2 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.4;
+}
+
+/* Close button — standard WP "×" */
+.ffxf-modal-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.7);
+    border-radius: 2px;
+    flex-shrink: 0;
+    transition: color 0.15s ease, background 0.15s ease;
+}
+
+.ffxf-modal-close:hover,
+.ffxf-modal-close:focus {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    outline: none;
+    box-shadow: none;
+}
+
+.ffxf-modal-close:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.ffxf-modal-close .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+}
+
+/* Body */
+.ffxf-modal-body {
+    padding: 20px 24px 24px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.2s ease 0.05s, transform 0.2s ease 0.05s;
+}
+
+.ffxf-modal-frame.state-appear .ffxf-modal-body {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ffxf-modal-frame.state-leave .ffxf-modal-body {
+    opacity: 0;
+    transform: translateY(6px);
+    transition-delay: 0s;
+}
+
+.ffxf-modal-body p {
+    padding-bottom: 0;
+}
+
+.ffxf-modal-body .ps {
+    font-size: 12px;
+    opacity: 0.8;
+    font-style: italic;
+    text-align: center;
+    margin: 8px 0 0;
+}
+
+/* Animations */
+@keyframes ffxf-modal-in {
+    from { opacity: 0; transform: scale(0.95); visibility: visible; }
+    to   { opacity: 1; transform: scale(1);    visibility: visible; }
+}
+
+@keyframes ffxf-modal-out {
+    from { opacity: 1; transform: scale(1);    visibility: visible; }
+    to   { opacity: 0; transform: scale(0.95); visibility: hidden;  }
+}
+
+
+/* ---- Generate buttons (inside modals) ---- */
+/* Use WP native button-primary + button-large — no custom colours needed */
+.ffxf-modal-action {
+    margin-top: 16px;
+    margin-bottom: 4px;
+    text-align: center;
+}
+
+/* Kept for JS .hide() compatibility */
+.generate_button,
+.generate_button_category {
+    display: inline-block;
+}
+
+button.generate_button_category.disabled,
+button.generate_button_category:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.my-posts {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+    -ms-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+}
+
+.my-posts > div {
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.my-posts > div > div:last-child {
+    width: 33%;
+}
+
+.my-posts > div > div:first-child {
+    width: 60%;
+}
+
+.over {
+    overflow-y: auto;
+    max-height: 200px;
+    scrollbar-width: thin;
+    scrollbar-color: #333 #ccc;
+    padding: 15px 15px 0 0;
+}
+
+.over::-webkit-scrollbar-track {
+    background-color: #aeafae;
+    border-radius: 10px;
+    height: 1px;
+    border-top: 5px solid #fff;
+    border-bottom: 5px solid #fff;
+}
+
+.over::-webkit-scrollbar {
+    width: 4px;
+    background-color: #fff;
+    border-radius: 3px;
+    height: 11px;
+}
+
+.over::-webkit-scrollbar-thumb {
+    background-color: #24303e;
+    border-top: 3px solid #24303e;
+    border-bottom: 3px solid #24303e;
+    border-radius: 3px;
+    width: 4px;
+}
+
+/* -------------------------------------------------------------------------
+ * Progress pie chart — conic-gradient implementation.
+ * Smooth 0–100 % without the clip-based "jump at 50%" artefact.
+ * Size: 160 px outer / 128 px inner circle (80%).
+ * -------------------------------------------------------------------------*/
+
+.progress-pie-chart {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    /* conic-gradient drives the fill; JS updates via inline style */
+    background: conic-gradient(#81CE97 0deg, #E5E5E5 0deg);
+    position: relative;
+    margin: 16px auto;
+    transition: background 0.4s ease-out;
+}
+
+/* gt-50 class kept for JS compatibility — no longer changes appearance */
+.progress-pie-chart.gt-50 {}
+
+/* Legacy clip elements — hidden but kept so PHP template needs no change */
+.ppc-progress {
+    display: none;
+}
+
+.ppc-progress .ppc-progress-fill {
+    display: none;
+}
+
+/* Inner white circle that shows the percentage text */
+.ppc-percents {
+    position: absolute;
+    border-radius: 50%;
+    /* Inner circle = 80% of 160 px = 128 px */
+    width: 128px;
+    height: 128px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pcc-percents-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.ppc-percents span {
+    display: block;
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #81CE97;
+    line-height: 1;
+    transition: color 0.3s ease;
+}
+
+/* SKU column: label + value in one row */
+.ffxf-product-row__sku {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2px;
+    text-align: right;
+}
+
+.ffxf-sku-label {
+    font-size: 11px;
+    color: #8c8f94;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.slr {
+    color: #81CE97;
+    font-weight: 600;
+    font-size: 12px;
+    white-space: nowrap;
+    display: block;
+    overflow: hidden;
+    max-width: 160px;
+    text-overflow: ellipsis;
+    text-align: right;
+    line-height: 1.3;
+}
+
+p.title_product {
+    text-align: left;
+    display: flex;
+    align-items: center;
+}
+
+.title_product {
+    margin: 0;
+    padding: 0;
+}
+
+.title_product i {
+    color: #333;
+}
+
+p.title_product i {
+    font-size: 15px;
+    position: relative;
+    bottom: -3px;
+}
+
+
+div#TB_title:before {
+    content: '';
+    background: url(/wp-admin/images/spinner.gif);
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    margin: auto;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+div#postbox-container-5 {
+    width: 100%;
+}
+
+span.skuautoffxf_warning {
+    color: #FF5722;
+    font-style: italic;
+}
+
+@media (max-width: 1207px) {
+
+    .wrapper_setting_ffxf > .block_left > div {
+        width: 100%;
+    }
+
+    .wrapper_setting_ffxf > div:nth-child(2) {
+        width: 63%;
+    }
+
+    .inside > span.dashicons,
+    .inside > span.dashicons-before:before {
+
+        right: 32px;
+    }
+
+    .wrapper_setting_ffxf > .block_left > div {
+        width: 100%;
+    }
+
+    .wrapper_setting_ffxf > div:nth-child(2) {
+        width: 100%;
+    }
+
+    .wrapper_setting_ffxf {
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }
+
+    .wrapper_setting_ffxf > .block_left {
+        -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+        order: 2;
+        width: 100%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        margin-top: 20px;
+        margin-right: 0;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }
+
+}

@@ -22,7 +22,7 @@ function ft_next_homepage_defaults() {
         'service_area' => 'Serving Ontario & Surrounding Areas',
         'logo_text' => 'Floors Today',
         'logo_image' => '',
-        'favicon_image' => '/floorstest/favicon.png',
+        'favicon_image' => '/floorstoday/public/favicon.png',
         'logo_size' => '40px',
         'cta_label' => 'Free Estimate',
         'show_header' => '1',
@@ -49,7 +49,7 @@ function ft_next_homepage_defaults() {
         'hero_badge_animation_location' => '90deg',
         'hero_badge_animation_speed' => '4s',
         'hero_text' => 'All-inclusive pricing with no hidden fees. Get a complete quote during your free in-home consultation.',
-        'hero_image' => '/floorstest/images/hero-living-room.png',
+        'hero_image' => '/floorstoday/public/images/hero-living-room.png',
         'hero_show_background' => '1',
         'hero_show_overlay' => '1',
         'hero_overlay_opacity' => '0.72',
@@ -169,18 +169,19 @@ function ft_next_homepage_defaults() {
 
 function ft_next_homepage_settings() {
     $saved = get_option(FT_NEXT_HOME_OPTION, []);
-    return array_replace_recursive(ft_next_homepage_defaults(), is_array($saved) ? $saved : []);
+    $settings = array_replace_recursive(ft_next_homepage_defaults(), is_array($saved) ? $saved : []);
+
+    array_walk_recursive($settings, function (&$value) {
+        if (is_string($value)) {
+            $value = str_replace('/floorstest/', '/floorstoday/public/', $value);
+        }
+    });
+
+    return $settings;
 }
 
 function ft_next_homepage_frontend_url() {
-    $parts = wp_parse_url(home_url('/'));
-
-    if (empty($parts['scheme']) || empty($parts['host'])) {
-        return home_url('/../floorstest/');
-    }
-
-    $port = !empty($parts['port']) ? ':' . $parts['port'] : '';
-    return $parts['scheme'] . '://' . $parts['host'] . $port . '/floorstest/';
+    return home_url('/public/');
 }
 
 function ft_next_clean_text($value) {

@@ -8,7 +8,7 @@ import { useHomepageSettingsStatus } from "@/components/homepage-settings-provid
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { settings, isLoaded } = useHomepageSettingsStatus()
-  const logoSrc = settings.logo_image || "/floorstest/images/floors-today-logo.png"
+  const logoSrc = settings.logo_image || "/floorstoday/public/images/floors-today-logo.png"
   const phoneHref = `tel:${settings.phone.replace(/[^\d+]/g, "")}`
 
   return (

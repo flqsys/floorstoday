@@ -28,7 +28,7 @@ const footerLinks = {
 export function Footer() {
   const [email, setEmail] = useState("")
   const { settings, isLoaded } = useHomepageSettingsStatus()
-  const logoSrc = "/floorstest/images/floors-today-logo.png"
+  const logoSrc = "/floorstoday/public/images/floors-today-logo.png"
   const phoneHref = `tel:${settings.phone.replace(/[^\d+]/g, "")}`
 
   const handleSubmit = (e: React.FormEvent) => {

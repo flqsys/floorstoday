@@ -19,9 +19,9 @@ export const metadata: Metadata = {
     locale: 'en_CA',
   },
   icons: {
-    icon: '/floorstest/favicon.png',
-    shortcut: '/floorstest/favicon.png',
-    apple: '/floorstest/favicon.png',
+    icon: '/floorstoday/public/favicon.png',
+    shortcut: '/floorstoday/public/favicon.png',
+    apple: '/floorstoday/public/favicon.png',
   },
   robots: {
     index: true,

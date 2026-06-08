@@ -126,19 +126,19 @@ export function HeroSection() {
             <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-6">
               <a 
                 href={`tel:${settings.phone.replace(/[^\d+]/g, "")}`} 
-                className="flex items-center gap-3 group"
+                className="group flex flex-none items-center gap-3"
               >
-                <div className="w-14 h-14 rounded-full bg-secondary flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="flex h-14 w-14 flex-none items-center justify-center rounded-full bg-secondary transition-transform group-hover:scale-110">
                   <Phone className="h-6 w-6 text-secondary-foreground" />
                 </div>
-                <div>
+                <div className="min-w-max">
                   <p className="text-sm text-background/70">Call Us Now</p>
-                  <p className="text-2xl font-bold text-background">{settings.phone}</p>
+                  <p className="whitespace-nowrap text-2xl font-bold text-background">{settings.phone}</p>
                 </div>
               </a>
               <div className="hidden sm:block w-px h-12 bg-background/20" />
-              <div className="flex items-center gap-2">
-                <MapPin className="h-5 w-5 text-secondary" />
+              <div className="flex min-w-0 items-center gap-2">
+                <MapPin className="h-5 w-5 flex-none text-secondary" />
                 <span className="text-background/80">{settings.service_area}</span>
               </div>
             </div>

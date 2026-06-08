@@ -1,26 +1,27 @@
-*
+# Local secrets
+/wp-config.php
+/.env
+/.env.*
 
-!.gitignore
-!README.md
+# WordPress backups, caches, logs, and temporary files
+/wp-content/wpvividbackups/
+/wp-content/wflogs/
+/wp-content/cache/
+/wp-content/upgrade/
+/wp-content/ai1wm-backups/
+/wp-content/backups/
+*.sql
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.log
 
-!public/
-!public/**
-
-!wp-content/
-!wp-content/mu-plugins/
-!wp-content/mu-plugins/floors-next-homepage-backend.php
-!wp-content/uploads/
-!wp-content/uploads/2026/
-!wp-content/uploads/2026/06/
-!wp-content/uploads/2026/06/floors-today-favicon.png
-
-public/node_modules/
-public/.next/
-public/out/
-public/_next/
-public/.vercel/
-public/.snowflake/
-public/.v0-trash/
-public/.env*.local
-public/*.html
-public/*.txt
+# Next.js dependencies and generated output
+/public/node_modules/
+/public/.next/
+/public/out/
+/public/.vercel/
+/public/.snowflake/
+/public/.v0-trash/
+/public/.env*.local
