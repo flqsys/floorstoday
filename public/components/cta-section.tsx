@@ -1,6 +1,5 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { useHomepageSettings } from "@/components/homepage-settings-provider"
@@ -26,16 +25,13 @@ export function CTASection() {
         <p className="mt-2 text-lg opacity-80 max-w-2xl mx-auto">
           {settings.cta_text}
         </p>
-        <Button 
-          asChild 
-          size="lg" 
-          className="mt-8 bg-secondary hover:bg-secondary/90 text-secondary-foreground"
+        <Link
+          href="#estimate"
+          className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-secondary px-6 py-3 text-base font-bold text-secondary-foreground shadow-md transition-colors hover:bg-secondary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
         >
-          <Link href="#estimate">
-            {settings.cta_button}
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Link>
-        </Button>
+          <span>{settings.cta_button}</span>
+          <ArrowRight className="h-4 w-4" aria-hidden="true" />
+        </Link>
       </div>
     </section>
   )

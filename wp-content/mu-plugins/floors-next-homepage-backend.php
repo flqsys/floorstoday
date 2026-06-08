@@ -95,6 +95,17 @@ function ft_next_homepage_defaults() {
         'deals_card_title' => '50.50.50',
         'deals_card_subtitle' => 'SALE',
         'deals_button' => 'Claim Your Savings',
+        'deals_details_label' => 'View offer details',
+        'deals_includes_title' => 'Your project includes',
+        'deals_includes' => "Free home estimate\nSamples brought to you\nProfessional installation",
+        'deals_popup_eyebrow' => 'Limited-time offer',
+        'deals_popup_title' => 'Save on Your Complete Flooring Project',
+        'deals_popup_intro' => 'Choose your floors at home, receive transparent project pricing, and arrange professional installation.',
+        'deals_popup_button' => 'Book a Free Appointment',
+        'deals_popup_steps_title' => 'How the offer works',
+        'deals_popup_steps' => "Free home estimate|Book online or call {phone}.\nShop from home|Compare samples and receive your project estimate on site.\nEligible savings|Save up to 60% on select installed flooring styles.\nProfessional finish|Your flooring is installed by qualified professionals.",
+        'deals_popup_terms' => '*Get 15% off plus up to an additional 45% on carpet, or 25% on hardwood, laminate and vinyl, based on project size. Applies to select styles, basic installation, standard padding and materials. Excludes upgrades, stairs, specialized removal or preparation, non-standard furniture moving, miscellaneous charges and prior purchases. Residential installations only, while supplies last. Offer ends June 29, 2026 and is subject to change.',
+        'deals_popup_terms_extra' => 'Next-day installation applies only to eligible in-stock products and service areas. Installation may be completed by qualified independent professionals where applicable.',
         'deals_bg_color_1' => 'oklch(0.96 0.005 90)',
         'deals_bg_color_2' => 'oklch(0.985 0.002 90)',
         'deals_bg_location' => 'to bottom',
@@ -878,12 +889,16 @@ add_action('admin_post_ft_next_homepage_save', function () {
         'cta_bg_location', 'footer_bg_location',
         'category_title', 'guarantee_title', 'guarantee_subtitle', 'guarantee_link',
         'guarantee_image', 'deals_badge', 'deals_title', 'deals_card_title',
-        'deals_card_subtitle', 'deals_button', 'testimonials_title',
+        'deals_card_subtitle', 'deals_button', 'deals_details_label',
+        'deals_includes_title', 'deals_popup_eyebrow', 'deals_popup_title',
+        'deals_popup_button', 'deals_popup_steps_title', 'testimonials_title',
         'newsletter_title', 'newsletter_text', 'newsletter_button',
     ];
     $textarea_fields = [
         'hero_text', 'process_text', 'comparison_text', 'cta_text', 'footer_about',
         'category_text', 'guarantee_text', 'deals_text', 'deals_body',
+        'deals_includes', 'deals_popup_intro', 'deals_popup_steps',
+        'deals_popup_terms', 'deals_popup_terms_extra',
         'testimonials_text',
     ];
     $color_fields = [
@@ -1535,6 +1550,59 @@ function ft_next_homepage_render_admin() {
                                 <input name="deals_button" type="text" value="<?php echo esc_attr($settings['deals_button']); ?>">
                             </label>
                         </div>
+
+                        <div class="ft-next-inline-grid ft-next-inline-grid--2">
+                            <label>
+                                Details link label
+                                <input name="deals_details_label" type="text" value="<?php echo esc_attr($settings['deals_details_label']); ?>">
+                            </label>
+                            <label>
+                                Included items heading
+                                <input name="deals_includes_title" type="text" value="<?php echo esc_attr($settings['deals_includes_title']); ?>">
+                            </label>
+                        </div>
+                        <label>
+                            Included items
+                            <textarea name="deals_includes" rows="4" class="large-text"><?php echo esc_textarea($settings['deals_includes']); ?></textarea>
+                            <small>Enter one item per line.</small>
+                        </label>
+
+                        <h3>Offer details popup</h3>
+                        <div class="ft-next-inline-grid ft-next-inline-grid--2">
+                            <label>
+                                Eyebrow
+                                <input name="deals_popup_eyebrow" type="text" value="<?php echo esc_attr($settings['deals_popup_eyebrow']); ?>">
+                            </label>
+                            <label>
+                                Popup title
+                                <input name="deals_popup_title" type="text" value="<?php echo esc_attr($settings['deals_popup_title']); ?>">
+                            </label>
+                            <label>
+                                Steps heading
+                                <input name="deals_popup_steps_title" type="text" value="<?php echo esc_attr($settings['deals_popup_steps_title']); ?>">
+                            </label>
+                            <label>
+                                Appointment button
+                                <input name="deals_popup_button" type="text" value="<?php echo esc_attr($settings['deals_popup_button']); ?>">
+                            </label>
+                        </div>
+                        <label>
+                            Popup introduction
+                            <textarea name="deals_popup_intro" rows="3" class="large-text"><?php echo esc_textarea($settings['deals_popup_intro']); ?></textarea>
+                        </label>
+                        <label>
+                            Popup steps
+                            <textarea name="deals_popup_steps" rows="6" class="large-text"><?php echo esc_textarea($settings['deals_popup_steps']); ?></textarea>
+                            <small>One step per line. Use Title|Description. Use {phone} for the website phone number.</small>
+                        </label>
+                        <label>
+                            Main offer terms
+                            <textarea name="deals_popup_terms" rows="6" class="large-text"><?php echo esc_textarea($settings['deals_popup_terms']); ?></textarea>
+                        </label>
+                        <label>
+                            Additional offer terms
+                            <textarea name="deals_popup_terms_extra" rows="4" class="large-text"><?php echo esc_textarea($settings['deals_popup_terms_extra']); ?></textarea>
+                        </label>
 
                         <table class="widefat striped ft-next-table">
                             <thead><tr><th>Offer title</th><th>Description</th></tr></thead>

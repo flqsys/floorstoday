@@ -2,6 +2,7 @@
 
 import { Check, HelpCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import { useHomepageSettings } from "@/components/homepage-settings-provider"
 
 export function ComparisonSection() {
@@ -53,8 +54,8 @@ export function ComparisonSection() {
             ))}
             
             <div className="p-6 text-center">
-              <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground">
-                {settings.comparison_button}
+              <Button asChild size="lg" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground">
+                <Link href="#estimate">{settings.comparison_button}</Link>
               </Button>
             </div>
           </div>

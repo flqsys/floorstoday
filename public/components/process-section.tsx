@@ -1,6 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import { Calendar, FileText, Wrench } from "lucide-react"
 import { useHomepageSettings } from "@/components/homepage-settings-provider"
 
@@ -54,8 +55,8 @@ export function ProcessSection() {
                 </div>
                 <p className="text-muted-foreground leading-relaxed">{step.description}</p>
                 {step.button && (
-                  <Button className="mt-4 bg-primary hover:bg-primary/90 text-primary-foreground">
-                    {step.button}
+                  <Button asChild className="mt-4 bg-primary hover:bg-primary/90 text-primary-foreground">
+                    <Link href="#estimate">{step.button}</Link>
                   </Button>
                 )}
               </div>

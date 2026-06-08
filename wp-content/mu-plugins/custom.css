@@ -115,3 +115,34 @@
 .auto-fold #adminmenu #ft-admin-sidebar-copyright {
   display: none;
 }
+
+/* Admin Menu Editor can retain a stale WordPress count; use our unread badge only. */
+#adminmenu #toplevel_page_ft-inbox .awaiting-mod {
+  display: none !important;
+}
+
+#adminmenu #toplevel_page_ft-inbox .pending-count {
+  display: none !important;
+}
+
+#adminmenu .ft-inbox-menu-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  margin-left: 7px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: #d63638;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 18px;
+  vertical-align: middle;
+}
+
+#adminmenu .wp-menu-name > .ft-inbox-menu-count {
+  float: right;
+  margin-top: 1px;
+}
