@@ -37,7 +37,7 @@ export function Header() {
 
       <nav className="mx-auto max-w-[1280px] px-3 sm:px-4 lg:px-4">
         <div className="flex items-center justify-between py-0">
-          <Link href="/" className="flex items-center text-2xl font-bold text-primary">
+          <a href="/" className="flex items-center text-2xl font-bold text-primary">
             {logoSrc ? (
               <img
                 src={logoSrc}
@@ -51,7 +51,7 @@ export function Header() {
             ) : (
               <span className={isLoaded ? "" : "invisible"}>{settings.logo_text}</span>
             )}
-          </Link>
+          </a>
 
           <div className="hidden lg:flex lg:items-center lg:gap-6">
             {settings.nav_items.map((item) => (

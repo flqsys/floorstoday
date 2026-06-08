@@ -71,7 +71,7 @@ export function Footer() {
       <div className="mx-auto max-w-[1280px] px-3 sm:px-4 lg:px-4 py-12">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-6">
           <div className="lg:col-span-2">
-            <Link href="/" className="inline-flex items-center text-2xl font-bold">
+            <a href="/" className="inline-flex items-center text-2xl font-bold">
               {logoSrc ? (
                 <img
                   src={logoSrc}
@@ -84,7 +84,7 @@ export function Footer() {
               ) : (
                 <span className={isLoaded ? "" : "invisible"}>{settings.logo_text}</span>
               )}
-            </Link>
+            </a>
             <p className="mt-4 text-sm text-background/70 leading-relaxed">
               {settings.footer_about}
             </p>

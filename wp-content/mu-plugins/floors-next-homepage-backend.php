@@ -12,6 +12,8 @@ if (!defined('ABSPATH')) {
 const FT_NEXT_HOME_OPTION = 'ft_next_homepage_settings';
 
 function ft_next_homepage_defaults() {
+    $public_url = untrailingslashit(ft_next_homepage_frontend_url());
+
     return [
         'primary_color' => '#155f99',
         'secondary_color' => 'lab(76 3.16 65.32)',
@@ -22,7 +24,7 @@ function ft_next_homepage_defaults() {
         'service_area' => 'Serving Ontario & Surrounding Areas',
         'logo_text' => 'Floors Today',
         'logo_image' => '',
-        'favicon_image' => '/floorstoday/public/favicon.png',
+        'favicon_image' => $public_url . '/favicon.png',
         'logo_size' => '40px',
         'cta_label' => 'Free Estimate',
         'show_header' => '1',
@@ -49,7 +51,7 @@ function ft_next_homepage_defaults() {
         'hero_badge_animation_location' => '90deg',
         'hero_badge_animation_speed' => '4s',
         'hero_text' => 'All-inclusive pricing with no hidden fees. Get a complete quote during your free in-home consultation.',
-        'hero_image' => '/floorstoday/public/images/hero-living-room.png',
+        'hero_image' => $public_url . '/images/hero-living-room.png',
         'hero_show_background' => '1',
         'hero_show_overlay' => '1',
         'hero_overlay_opacity' => '0.72',
@@ -170,10 +172,15 @@ function ft_next_homepage_defaults() {
 function ft_next_homepage_settings() {
     $saved = get_option(FT_NEXT_HOME_OPTION, []);
     $settings = array_replace_recursive(ft_next_homepage_defaults(), is_array($saved) ? $saved : []);
+    $public_path = trailingslashit((string) wp_parse_url(ft_next_homepage_frontend_url(), PHP_URL_PATH));
 
-    array_walk_recursive($settings, function (&$value) {
+    array_walk_recursive($settings, function (&$value) use ($public_path) {
         if (is_string($value)) {
-            $value = str_replace('/floorstest/', '/floorstoday/public/', $value);
+            $value = str_replace(
+                ['/floorstest/', '/floorstoday/public/'],
+                $public_path,
+                $value
+            );
         }
     });
 
@@ -219,7 +226,16 @@ add_action('template_redirect', function () {
         return;
     }
 
-    wp_safe_redirect(ft_next_homepage_frontend_url(), 302);
+    $homepage_file = trailingslashit(ABSPATH) . 'public/index.html';
+
+    if (!is_readable($homepage_file)) {
+        return;
+    }
+
+    status_header(200);
+    nocache_headers();
+    header('Content-Type: text/html; charset=' . get_bloginfo('charset'));
+    readfile($homepage_file);
     exit;
 });
 
