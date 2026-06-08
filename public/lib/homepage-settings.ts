@@ -133,6 +133,8 @@ export type HomepageSettings = {
   nav_items: NavItem[]
 }
 
+const publicBasePath = process.env.NEXT_PUBLIC_BASE_PATH || "/public"
+
 export const homepageDefaults: HomepageSettings = {
   primary_color: "#155f99",
   secondary_color: "lab(76 3.16 65.32)",
@@ -143,7 +145,7 @@ export const homepageDefaults: HomepageSettings = {
   service_area: "Serving Ontario & Surrounding Areas",
   logo_text: "Floors Today",
   logo_image: "",
-  favicon_image: "/public/favicon.png",
+  favicon_image: `${publicBasePath}/favicon.png`,
   logo_size: "250px",
   cta_label: "Free Estimate",
   show_header: "1",
@@ -171,7 +173,7 @@ export const homepageDefaults: HomepageSettings = {
   hero_badge_animation_speed: "4s",
   hero_text:
     "All-inclusive pricing with no hidden fees. Get a complete quote during your free in-home consultation.",
-  hero_image: "/public/images/hero-living-room.png",
+  hero_image: `${publicBasePath}/images/hero-living-room.png`,
   hero_show_background: "1",
   hero_show_overlay: "1",
   hero_overlay_opacity: "0.72",

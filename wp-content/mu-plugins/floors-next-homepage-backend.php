@@ -239,6 +239,16 @@ add_action('template_redirect', function () {
     exit;
 });
 
+add_action('admin_enqueue_scripts', function () {
+    $custom_admin_css = __DIR__ . '/custom.css';
+    wp_enqueue_style(
+        'ft-wp-admin-custom',
+        plugin_dir_url(__FILE__) . 'custom.css',
+        [],
+        is_readable($custom_admin_css) ? (string) filemtime($custom_admin_css) : null
+    );
+});
+
 add_action('admin_enqueue_scripts', function ($hook) {
     if ($hook !== 'toplevel_page_ft-next-homepage') {
         return;

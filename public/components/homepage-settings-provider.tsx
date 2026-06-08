@@ -17,7 +17,7 @@ import {
 
 const endpoint =
   process.env.NEXT_PUBLIC_WORDPRESS_HOMEPAGE_ENDPOINT ||
-  "../wp-json/floors-today/v1/homepage"
+  "/wp-json/floors-today/v1/homepage"
 
 type HomepageSettingsContextValue = {
   settings: HomepageSettings
@@ -32,6 +32,7 @@ const HomepageSettingsContext = createContext<HomepageSettingsContextValue>({
 export function HomepageSettingsProvider({ children }: { children: ReactNode }) {
   const [settings, setSettings] = useState<HomepageSettings>(homepageDefaults)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [loadError, setLoadError] = useState(false)
 
   useEffect(() => {
     let alive = true
@@ -51,7 +52,9 @@ export function HomepageSettingsProvider({ children }: { children: ReactNode }) 
         }
       })
       .catch(() => {
-        // Keep the configured page covered instead of showing stale defaults.
+        if (alive) {
+          setLoadError(true)
+        }
       })
 
     return () => {
@@ -125,7 +128,13 @@ export function HomepageSettingsProvider({ children }: { children: ReactNode }) 
           }`}
           aria-hidden={isLoaded}
         >
-          <span className="h-9 w-9 animate-spin rounded-full border-2 border-slate-200 border-t-slate-700" />
+          {loadError ? (
+            <p className="px-6 text-center text-sm font-medium text-slate-700">
+              Homepage settings are temporarily unavailable.
+            </p>
+          ) : (
+            <span className="h-9 w-9 animate-spin rounded-full border-2 border-slate-200 border-t-slate-700" />
+          )}
         </div>
         <div
           className={`transition-opacity duration-200 ${
