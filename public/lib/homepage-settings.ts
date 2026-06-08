@@ -142,7 +142,7 @@ export const homepageDefaults: HomepageSettings = {
   email: "info@floorstoday.com",
   service_area: "Serving Ontario & Surrounding Areas",
   logo_text: "Floors Today",
-  logo_image: "/floorstoday/public/images/floors-today-logo.png",
+  logo_image: "",
   favicon_image: "/floorstoday/public/favicon.png",
   logo_size: "250px",
   cta_label: "Free Estimate",

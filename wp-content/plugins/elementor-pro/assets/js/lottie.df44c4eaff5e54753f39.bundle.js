@@ -1,4 +1,4 @@
-/*! elementor-pro - v4.1.0 - 26-05-2026 */
+/*! elementor-pro - v4.1.0 - 08-06-2026 */
 "use strict";
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["lottie"],{
 
@@ -371,11 +371,18 @@ class lottieHandler extends elementorModules.frontend.handlers.Base {
   }
   getLottieSettings() {
     const lottieSettings = this.getElementSettings();
-    return {
+    const settings = {
       ...lottieSettings,
       lazyload: 'yes' === lottieSettings.lazyload,
       loop: 'yes' === lottieSettings.loop
     };
+    if ('external_url' === lottieSettings.source) {
+      settings.source_external_url = {
+        ...(lottieSettings.source_external_url ?? {}),
+        url: settings.source_external_url?.url || this.getDynamicValue()
+      };
+    }
+    return settings;
   }
   playLottie() {
     const frame = this.getAnimationFrames();
@@ -653,10 +660,29 @@ class lottieHandler extends elementorModules.frontend.handlers.Base {
     }
     this.animationFrameRequest.timer = requestAnimationFrame(() => this.onAnimationFrameRequest());
   }
+  getDynamicValue() {
+    if (!this.isEdit || !elementor?.dynamicTags) {
+      return '';
+    }
+    const modelSettings = elementor.getContainer(this.getID())?.model?.get('settings');
+    const dynamicValue = modelSettings?.get('__dynamic__')?.source_external_url ?? null;
+    if (!dynamicValue) {
+      return '';
+    }
+    const dynamicData = elementor.dynamicTags.tagTextToTagData(dynamicValue);
+    if (!dynamicData) {
+      return '';
+    }
+    try {
+      return elementor.dynamicTags.parseTagsText(dynamicValue, dynamicData, elementor.dynamicTags.getTagDataContent) ?? '';
+    } catch {
+      return '';
+    }
+  }
 }
 exports["default"] = lottieHandler;
 
 /***/ }
 
 }]);
-//# sourceMappingURL=lottie.0e9f4fa9c5200fc5c1a3.bundle.js.map
+//# sourceMappingURL=lottie.df44c4eaff5e54753f39.bundle.js.map

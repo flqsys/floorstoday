@@ -101,7 +101,7 @@ class StripeSettings
         if (!preg_match('/[a-zA-Z]/', $descriptor)) {
             $descriptor = 'Event: ' . $descriptor;
         }
-        $descriptor = stripslashes($descriptor);
+        $descriptor = sanitize_text_field($descriptor);
 
         // Remove illegal characters
         $descriptor = str_replace(['<', '>', '"', "'"], '', $descriptor);

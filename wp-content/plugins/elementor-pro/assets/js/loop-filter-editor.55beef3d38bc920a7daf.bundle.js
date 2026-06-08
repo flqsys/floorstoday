@@ -1,4 +1,4 @@
-/*! elementor-pro - v4.1.0 - 26-05-2026 */
+/*! elementor-pro - v4.1.0 - 08-06-2026 */
 "use strict";
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["loop-filter-editor"],{
 
@@ -48,6 +48,12 @@ module.exports = ElementEditorModule.extend({
     this.updateSelectedElementOptions();
     const selectedElementControlView = this.getEditorControlView('selected_element'),
       selectedElementControlValue = selectedElementControlView.getControlValue();
+    if (!selectedElementControlValue) {
+      return;
+    }
+    if (this.handleInvalidSetup(selectedElementControlValue)) {
+      return;
+    }
     if (selectedElementControlValue) {
       this.updateTaxonomyOptions(selectedElementControlValue);
     }
@@ -78,6 +84,9 @@ module.exports = ElementEditorModule.extend({
       return;
     }
     const controlValue = controlView.getControlValue();
+    if (this.handleInvalidSetup(controlValue)) {
+      return;
+    }
     if (controlValue) {
       this.updateTaxonomyOptions(controlValue);
     } else {
@@ -114,7 +123,6 @@ module.exports = ElementEditorModule.extend({
     return 'product';
   },
   updateTaxonomyOptions(loopWidgetId) {
-    // TODO: Add control spinner.
     const postType = this.getLoopQueryPostType(loopWidgetId);
     const postTypeTaxonomies = this.getPostTypeTaxonomies(postType).then(response => {
       if (!(response instanceof Response)) {
@@ -169,24 +177,45 @@ module.exports = ElementEditorModule.extend({
       })
     });
   },
-  displayErrorDialog() {
-    elementorCommon.dialogsManager.createWidget('alert', {
-      id: 'e-filter-error-message',
-      className: 'e-filter__error-message',
-      headerMessage: __('Something went wrong', 'elementor-pro'),
-      message: __('We are experiencing technical difficulties on our end. Please try again to reconnect.', 'elementor-pro'),
-      position: {
-        my: 'center center',
-        at: 'center center'
-      },
-      strings: {
-        confirm: __('OK', 'elementor-pro')
-      }
-    }).show();
+  displayErrorDialog(options = {}) {
+    const id = options?.id || 'e-filter-error-message';
+    const showDialog = () => {
+      elementorCommon.dialogsManager.createWidget('alert', {
+        id,
+        className: 'e-filter__error-message',
+        headerMessage: options?.headerMessage || __('Something went wrong', 'elementor-pro'),
+        message: options?.message || __('We are experiencing technical difficulties on our end. Please try again to reconnect.', 'elementor-pro'),
+        position: {
+          my: 'center center',
+          at: 'center center'
+        },
+        strings: {
+          confirm: __('OK', 'elementor-pro')
+        }
+      }).show();
+    };
+    setTimeout(showDialog, 0);
+  },
+  handleInvalidSetup(loopWidgetId) {
+    const loopWidgetContainer = elementor.getContainer(loopWidgetId);
+    if (!loopWidgetContainer) {
+      return false;
+    }
+    const loopSource = loopWidgetContainer.settings.attributes.post_query_post_type;
+    const isInvalidSetup = 'current_query' === loopSource && 'single-post' === elementor.config.document.type;
+    if (!isInvalidSetup) {
+      return false;
+    }
+    this.displayErrorDialog({
+      id: 'e-filter-invalid-setup-error',
+      headerMessage: __('Invalid Setup', 'elementor-pro'),
+      message: __('Cannot filter a single-item list, please change from "Current Query" to a different query setting.', 'elementor-pro')
+    });
+    return true;
   }
 });
 
 /***/ }
 
 }]);
-//# sourceMappingURL=loop-filter-editor.c48a92ca45daba9995c5.bundle.js.map
+//# sourceMappingURL=loop-filter-editor.55beef3d38bc920a7daf.bundle.js.map

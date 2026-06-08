@@ -137,9 +137,9 @@ export function HeroSection() {
                 </div>
               </a>
               <div className="hidden sm:block w-px h-12 bg-background/20" />
-              <div className="flex min-w-0 items-center gap-2">
+              <div className="flex min-w-max items-center gap-2">
                 <MapPin className="h-5 w-5 flex-none text-secondary" />
-                <span className="text-background/80">{settings.service_area}</span>
+                <span className="whitespace-nowrap text-background/80">{settings.service_area}</span>
               </div>
             </div>
           </div>

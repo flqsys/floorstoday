@@ -46,7 +46,7 @@ return function ($file) {
         });
 
         if (defined('FLUENT_BOOKING_VERSION') && version_compare(FLUENT_BOOKING_MIN_CORE_VERSION, FLUENT_BOOKING_VERSION, '>')) {
-            add_filter('fluent_booking/dashboard_notices', function ($notices, $licenseMessage) {
+            add_filter('fluent_booking/dashboard_notices', function ($notices) {
                 $updateUrl = admin_url('plugins.php?s=fluent-booking&plugin_status=all&fluent-booking_check_update=' . time());
                 $notices[] = '<div class="error">' . esc_html__('FluentBooking base plugin needs to be updated to the latest version.', 'fluent-booking-pro') . ' <a href="' . esc_url($updateUrl) . '">' . esc_html__('Click here to update', 'fluent-booking-pro') . '</a></div>';
                 return $notices;

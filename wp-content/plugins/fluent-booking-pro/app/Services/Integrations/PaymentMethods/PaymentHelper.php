@@ -47,9 +47,7 @@ class PaymentHelper
 
         $string = preg_replace('/[^a-zA-Z0-9\s]/', '', $string);
 
-        $string = self::limitLength($string, $limit);
-
-        return html_entity_decode($string, ENT_NOQUOTES, 'UTF-8');
+        return self::limitLength($string, $limit);
     }
 
     public static function limitLength($string, $limit = 127)

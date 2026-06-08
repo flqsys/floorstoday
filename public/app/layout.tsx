@@ -18,11 +18,6 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_CA',
   },
-  icons: {
-    icon: '/floorstoday/public/favicon.png',
-    shortcut: '/floorstoday/public/favicon.png',
-    apple: '/floorstoday/public/favicon.png',
-  },
   robots: {
     index: true,
     follow: true,

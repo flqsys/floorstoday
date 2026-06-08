@@ -122,7 +122,7 @@ class OutlookHelper
                 $calendarAccess = Arr::get($calendarMap[$calendarId], 'can_write', 'yes') == 'yes';
                 $validCalendars[$calendarId] = [
                     'id'         => $calendarId,
-                    'is_holiday' => str_contains(strtolower($calendarName), 'holiday') && !$calendarAccess
+                    'is_holiday' => strpos(strtolower($calendarName), 'holiday') !== false && !$calendarAccess
                 ];
             }
 

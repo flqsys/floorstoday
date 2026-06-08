@@ -17,7 +17,7 @@ import {
 
 const endpoint =
   process.env.NEXT_PUBLIC_WORDPRESS_HOMEPAGE_ENDPOINT ||
-  "http://localhost/floorstoday/wp-json/floors-today/v1/homepage"
+  "../wp-json/floors-today/v1/homepage"
 
 type HomepageSettingsContextValue = {
   settings: HomepageSettings
@@ -51,10 +51,7 @@ export function HomepageSettingsProvider({ children }: { children: ReactNode }) 
         }
       })
       .catch(() => {
-        if (alive) {
-          setSettings(homepageDefaults)
-          setIsLoaded(true)
-        }
+        // Keep the configured page covered instead of showing stale defaults.
       })
 
     return () => {
@@ -121,7 +118,23 @@ export function HomepageSettingsProvider({ children }: { children: ReactNode }) 
 
   return (
     <HomepageSettingsContext.Provider value={{ settings, isLoaded }}>
-      <div className="ft-homepage-shell" style={style}>{children}</div>
+      <div className="ft-homepage-shell" style={style}>
+        <div
+          className={`fixed inset-0 z-[100] flex items-center justify-center bg-white transition-opacity duration-200 ${
+            isLoaded ? "pointer-events-none opacity-0" : "opacity-100"
+          }`}
+          aria-hidden={isLoaded}
+        >
+          <span className="h-9 w-9 animate-spin rounded-full border-2 border-slate-200 border-t-slate-700" />
+        </div>
+        <div
+          className={`transition-opacity duration-200 ${
+            isLoaded ? "opacity-100" : "pointer-events-none opacity-0"
+          }`}
+        >
+          {children}
+        </div>
+      </div>
     </HomepageSettingsContext.Provider>
   )
 }

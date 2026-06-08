@@ -173,7 +173,7 @@ class Application implements ArrayAccess
 
             $ns = substr(($fqn = __NAMESPACE__), 0, strpos($fqn, '\\'));
 
-            if (str_contains($class, ($facade = $ns.'\Facade'))) {
+            if (strpos($class, ($facade = $ns.'\Facade')) !== false) {
 
                 $this->createFacadeFor($facade, $class, $app);
             }

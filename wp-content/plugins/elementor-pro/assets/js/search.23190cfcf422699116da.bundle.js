@@ -1,4 +1,4 @@
-/*! elementor-pro - v4.1.0 - 26-05-2026 */
+/*! elementor-pro - v4.1.0 - 08-06-2026 */
 "use strict";
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["search"],{
 
@@ -417,11 +417,13 @@ class Search extends elementorModules.frontend.handlers.Base {
   }
   prepareSearchUpdateRequestData() {
     const widgetId = '' + this.getID(),
+      breakpoint = elementorFrontend.getCurrentDeviceMode?.() ?? 'desktop',
       data = {
         post_id: this.getClosestDataElementorId(this.$element[0]),
         widget_id: widgetId,
         search_term: this.elements.searchField.value || '',
-        page_number: this.page_number
+        page_number: this.page_number,
+        breakpoint
       };
     if (elementorFrontend.isEditMode()) {
       // In the editor, we have to support Search widgets that have been created but not saved to the database yet.
@@ -524,4 +526,4 @@ exports["default"] = Search;
 /***/ }
 
 }]);
-//# sourceMappingURL=search.8714404184f003527703.bundle.js.map
+//# sourceMappingURL=search.23190cfcf422699116da.bundle.js.map

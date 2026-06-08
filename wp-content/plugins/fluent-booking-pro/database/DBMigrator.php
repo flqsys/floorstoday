@@ -14,7 +14,7 @@ class DBMigrator
 
         if (is_multisite() && $network_wide) {
             global $wpdb;
-            $blog_ids = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs"); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+            $blog_ids = $wpdb->get_col($wpdb->prepare("SELECT blog_id FROM {$wpdb->blogs} WHERE 1=%d", 1)); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
             foreach ($blog_ids as $blog_id) {
                 switch_to_blog($blog_id);
                 static::migrate();

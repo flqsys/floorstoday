@@ -33,7 +33,8 @@ class OrdersItemsMigrator
 		}  else {
             $isTypeMigrated = $wpdb->get_col($wpdb->prepare("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE() AND COLUMN_NAME='type' AND TABLE_NAME=%s", $table));
             if(!$isTypeMigrated) {
-                $wpdb->query("ALTER TABLE {$table} ADD COLUMN `type` VARCHAR(255) NULL AFTER `item_name`");
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.SchemaChange -- ALTER TABLE with %i identifier placeholder.
+                $wpdb->query($wpdb->prepare("ALTER TABLE %i ADD COLUMN `type` VARCHAR(255) NULL AFTER `item_name`", $table));
             }
         }
 	}

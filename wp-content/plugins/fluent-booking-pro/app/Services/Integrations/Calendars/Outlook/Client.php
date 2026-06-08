@@ -262,37 +262,6 @@ class Client
         return $resBody;
     }
 
-    public function makeCurlPost($url, $body, $header)
-    {
-        // Initialize cURL session
-        $ch = curl_init($url);
-
-        // Set cURL options
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Content-Type: application/json',
-            'Authorization: Bearer ' . $this->accessToken,
-        ]);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, wp_json_encode($body));
-
-        // Execute the cURL session
-        $response = curl_exec($ch);
-
-        // Check for cURL errors
-        if (curl_errno($ch)) {
-            $error_msg = curl_error($ch);
-            curl_close($ch);
-            return new \WP_Error('curl_error', $error_msg);
-        }
-
-        // Close cURL session
-        curl_close($ch);
-
-        // Decode the response
-        return json_decode($response, true);
-    }
-
     public function getAuthUrl($userId)
     {
         return add_query_arg([

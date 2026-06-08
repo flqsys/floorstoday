@@ -18,11 +18,9 @@ class IPN
 
         $post_data = '';
 
-        if (ini_get('allow_url_fopen')) {
-            $raw = file_get_contents('php://input');
-            if (is_string($raw)) {
-                $post_data = $raw;
-            }
+        $raw = file_get_contents('php://input');
+        if (is_string($raw)) {
+            $post_data = $raw;
         }
 
         $encoded_data = 'cmd=_notify-validate';
