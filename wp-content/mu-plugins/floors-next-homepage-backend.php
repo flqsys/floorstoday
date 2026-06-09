@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
 const FT_NEXT_HOME_OPTION = 'ft_next_homepage_settings';
 
 function ft_next_homepage_defaults() {
-    $public_url = untrailingslashit(ft_next_homepage_frontend_url());
+    $public_url = untrailingslashit(ft_next_homepage_asset_url());
 
     return [
         'primary_color' => '#155f99',
@@ -29,6 +29,16 @@ function ft_next_homepage_defaults() {
         'cta_label' => 'Free Estimate',
         'show_header' => '1',
         'show_footer' => '1',
+        'facebook_url' => '',
+        'instagram_url' => '',
+        'linkedin_url' => '',
+        'seo_title' => 'Floors Today | Flooring Installation in Ontario',
+        'seo_description' => 'Shop premium hardwood, laminate, vinyl and carpet flooring with free in-home estimates and professional installation across Ontario.',
+        'seo_canonical_url' => home_url('/'),
+        'seo_robots' => 'index, follow, max-image-preview:large',
+        'seo_og_title' => 'Floors Today | Premium Flooring in Ontario',
+        'seo_og_description' => 'Free in-home flooring estimates, transparent pricing and professional installation across Ontario.',
+        'seo_og_image' => $public_url . '/images/hero-living-room.png',
         'button_radius' => '8px',
         'button_font_weight' => '700',
         'button_text_transform' => 'none',
@@ -118,6 +128,15 @@ function ft_next_homepage_defaults() {
         'newsletter_text' => 'Get the latest deals and flooring tips',
         'newsletter_button' => 'Subscribe',
         'footer_about' => "We believe in transparent pricing. That's why our all-inclusive estimates include every essential detail in delivering a seamless flooring experience with no unexpected costs.",
+        'footer_about_title' => 'About Us',
+        'footer_about_links' => "About Us|/about-us/\nContact Us|/contact/",
+        'footer_categories_title' => 'Categories',
+        'footer_help_title' => 'Help Area',
+        'footer_help_links' => "How Shop at Home Works|#how-it-works\nProduct Care|/product-care/\nContact|/contact/",
+        'footer_policies_title' => 'Our Policies',
+        'footer_policy_links' => "Terms Of Use|/terms-of-use/\nFAQs|/faqs/\nPrivacy Policy|/privacy-policy/\nWarranty Information|/warranty/",
+        'footer_bottom_links' => "Careers|/careers/\nPrivacy Policy|/privacy-policy/\nSitemap|/sitemap_index.xml\nTerms Of Use|/terms-of-use/",
+        'footer_copyright' => 'Floors Today Copyright {year} All Rights Reserved',
         'footer_bg_color_1' => 'oklch(0.20 0.02 30)',
         'footer_bg_color_2' => 'oklch(0.20 0.02 30)',
         'footer_bg_location' => 'to bottom',
@@ -183,7 +202,7 @@ function ft_next_homepage_defaults() {
 function ft_next_homepage_settings() {
     $saved = get_option(FT_NEXT_HOME_OPTION, []);
     $settings = array_replace_recursive(ft_next_homepage_defaults(), is_array($saved) ? $saved : []);
-    $public_path = trailingslashit((string) wp_parse_url(ft_next_homepage_frontend_url(), PHP_URL_PATH));
+    $public_path = trailingslashit((string) wp_parse_url(ft_next_homepage_asset_url(), PHP_URL_PATH));
 
     array_walk_recursive($settings, function (&$value) use ($public_path) {
         if (is_string($value)) {
@@ -199,6 +218,10 @@ function ft_next_homepage_settings() {
 }
 
 function ft_next_homepage_frontend_url() {
+    return home_url('/');
+}
+
+function ft_next_homepage_asset_url() {
     return home_url('/public/');
 }
 
@@ -243,10 +266,81 @@ add_action('template_redirect', function () {
         return;
     }
 
+    $html = file_get_contents($homepage_file);
+
+    if ($html === false) {
+        return;
+    }
+
+    $settings = ft_next_homepage_settings();
+    $seo_title = $settings['seo_title'];
+    $seo_description = $settings['seo_description'];
+    $seo_canonical = $settings['seo_canonical_url'] ?: home_url('/');
+    $seo_robots = $settings['seo_robots'];
+    $seo_og_title = $settings['seo_og_title'] ?: $seo_title;
+    $seo_og_description = $settings['seo_og_description'] ?: $seo_description;
+    $seo_og_image = $settings['seo_og_image'] ?: $settings['hero_image'];
+    $initial_settings = wp_json_encode(
+        $settings,
+        JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_SLASHES
+    );
+
+    $html = preg_replace('/<title>.*?<\/title>/is', '<title>' . esc_html($seo_title) . '</title>', $html, 1);
+    $html = preg_replace('/<meta\s+name="description"[^>]*>/i', '', $html);
+    $html = preg_replace('/<meta\s+name="keywords"[^>]*>/i', '', $html);
+    $html = preg_replace('/<meta\s+name="robots"[^>]*>/i', '', $html);
+    $html = preg_replace('/<meta\s+name="twitter:[^"]+"[^>]*>/i', '', $html);
+    $html = preg_replace('/<meta\s+property="og:[^"]+"[^>]*>/i', '', $html);
+    $html = preg_replace('/<link\s+rel="canonical"[^>]*>/i', '', $html);
+
+    $seo_tags = "\n"
+        . '<script>window.__FT_HOMEPAGE_SETTINGS__=' . $initial_settings . ';</script>' . "\n"
+        . ($settings['logo_image']
+            ? '<link rel="preload" as="image" href="' . esc_url($settings['logo_image']) . '" fetchpriority="high">' . "\n"
+            : '')
+        . '<meta name="description" content="' . esc_attr($seo_description) . '">' . "\n"
+        . '<meta name="robots" content="' . esc_attr($seo_robots) . '">' . "\n"
+        . '<link rel="canonical" href="' . esc_url($seo_canonical) . '">' . "\n"
+        . '<meta property="og:type" content="website">' . "\n"
+        . '<meta property="og:locale" content="en_CA">' . "\n"
+        . '<meta property="og:site_name" content="' . esc_attr($settings['logo_text']) . '">' . "\n"
+        . '<meta property="og:title" content="' . esc_attr($seo_og_title) . '">' . "\n"
+        . '<meta property="og:description" content="' . esc_attr($seo_og_description) . '">' . "\n"
+        . '<meta property="og:url" content="' . esc_url($seo_canonical) . '">' . "\n"
+        . '<meta property="og:image" content="' . esc_url($seo_og_image) . '">' . "\n"
+        . '<meta name="twitter:card" content="summary_large_image">' . "\n"
+        . '<meta name="twitter:title" content="' . esc_attr($seo_og_title) . '">' . "\n"
+        . '<meta name="twitter:description" content="' . esc_attr($seo_og_description) . '">' . "\n"
+        . '<meta name="twitter:image" content="' . esc_url($seo_og_image) . '">' . "\n";
+
+    $html = str_replace('</head>', $seo_tags . '</head>', $html);
+
+    $schema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'LocalBusiness',
+        'name' => $settings['logo_text'],
+        'description' => $seo_description,
+        'url' => $seo_canonical,
+        'telephone' => $settings['phone'],
+        'email' => $settings['email'],
+        'image' => $seo_og_image,
+        'areaServed' => $settings['service_area'],
+        'priceRange' => '$$',
+    ];
+    $schema_script = '<script type="application/ld+json" id="ft-home-schema">'
+        . wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+        . '</script>';
+    $html = preg_replace(
+        '/<script[^>]*id="ft-home-schema"[^>]*>.*?<\/script>/is',
+        $schema_script,
+        $html,
+        1
+    );
+
     status_header(200);
     nocache_headers();
     header('Content-Type: text/html; charset=' . get_bloginfo('charset'));
-    readfile($homepage_file);
+    echo $html;
     exit;
 });
 
@@ -423,6 +517,22 @@ add_action('admin_enqueue_scripts', function ($hook) {
         .ft-next-card .form-table td {
             padding: 10px 0;
         }
+        .ft-next-card .form-table tr.ft-next-color-field {
+            display: block;
+            margin-bottom: 18px;
+        }
+        .ft-next-card .form-table tr.ft-next-color-field:last-child {
+            margin-bottom: 0;
+        }
+        .ft-next-card .form-table tr.ft-next-color-field th,
+        .ft-next-card .form-table tr.ft-next-color-field td {
+            display: block;
+            width: 100%;
+            padding: 0;
+        }
+        .ft-next-card .form-table tr.ft-next-color-field th {
+            margin-bottom: 8px;
+        }
         .ft-next-card input.regular-text,
         .ft-next-card textarea.large-text,
         .ft-next-card select,
@@ -433,11 +543,18 @@ add_action('admin_enqueue_scripts', function ($hook) {
         .ft-next-table input,
         .ft-next-table textarea {
             width: 100%;
-            max-width: 720px;
+            max-width: none;
             border-radius: 8px;
             border-color: #cbd5df;
             min-height: 38px;
             color: #1d2a38;
+        }
+        .ft-next-card input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]),
+        .ft-next-card select {
+            height: 40px;
+            min-height: 40px;
+            padding-top: 0;
+            padding-bottom: 0;
         }
         .ft-next-card textarea.large-text,
         .ft-next-inline-grid textarea,
@@ -456,7 +573,7 @@ add_action('admin_enqueue_scripts', function ($hook) {
             display: flex;
             gap: 10px;
             align-items: center;
-            max-width: 720px;
+            max-width: none;
         }
         .ft-next-image-input {
             display: none !important;
@@ -499,6 +616,33 @@ add_action('admin_enqueue_scripts', function ($hook) {
         }
         .ft-next-repeater-item--single {
             grid-template-columns: minmax(0, 1fr);
+        }
+        .ft-next-repeater-item--hero {
+            grid-template-columns: minmax(0, 1fr) 320px;
+            align-items: start;
+        }
+        .ft-next-repeater-item--hero .ft-next-media-panel,
+        .ft-next-repeater-item--hero .ft-next-subgroup,
+        .ft-next-repeater-item--hero .ft-next-image-field {
+            min-width: 0;
+            max-width: 100%;
+        }
+        .ft-next-hero-background-controls {
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        .ft-next-hero-opacity {
+            display: grid;
+            gap: 6px;
+            font-weight: 600;
+            color: #314154;
+        }
+        .ft-next-repeater-item--hero .ft-next-image-preview {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
         }
         .ft-next-repeater-item--single .ft-next-media-panel,
         .ft-next-repeater-item--single .ft-next-image-preview {
@@ -553,6 +697,14 @@ add_action('admin_enqueue_scripts', function ($hook) {
         .ft-next-inline-grid--header {
             grid-template-columns: minmax(150px, 1fr) minmax(180px, 1fr) minmax(260px, 30%) minmax(170px, 1fr);
         }
+        .ft-next-inline-grid--badge-style {
+            grid-template-columns: repeat(2, minmax(260px, 1fr)) 120px;
+            align-items: end;
+        }
+        .ft-next-inline-grid--compact-values {
+            grid-template-columns: repeat(2, minmax(120px, 180px));
+            justify-content: start;
+        }
         .ft-next-inline-grid label {
             display: grid;
             gap: 6px;
@@ -583,6 +735,7 @@ add_action('admin_enqueue_scripts', function ($hook) {
             pointer-events: none;
         }
         .ft-next-toggle__switch {
+            display: block;
             width: 48px;
             height: 26px;
             border-radius: 999px;
@@ -609,6 +762,10 @@ add_action('admin_enqueue_scripts', function ($hook) {
         .ft-next-toggle input:checked + .ft-next-toggle__switch::after {
             transform: translateX(22px);
         }
+        .ft-next-toggle input:focus-visible + .ft-next-toggle__switch {
+            outline: 2px solid #155f99;
+            outline-offset: 2px;
+        }
         .ft-next-media-panel {
             display: grid;
             align-content: start;
@@ -618,27 +775,52 @@ add_action('admin_enqueue_scripts', function ($hook) {
             font-weight: 600;
         }
         .ft-next-color-row {
-            display: grid;
-            grid-template-columns: auto minmax(220px, 1fr) auto;
-            gap: 10px;
-            align-items: center;
-            max-width: 720px;
+            display: flex;
+            align-items: stretch;
+            max-width: none;
+            width: 100%;
+            min-height: 40px;
+            overflow: hidden;
+            border: 1px solid #cbd5df;
+            border-radius: 8px;
+            background: #fff;
         }
-        .ft-next-color-row .wp-picker-container {
-            min-width: 110px;
+        .ft-next-color-row:focus-within {
+            border-color: #155f99;
+            box-shadow: 0 0 0 2px rgba(21, 95, 153, .15);
         }
-        .ft-next-color-row .wp-picker-container .wp-color-result.button {
-            margin: 0;
+        .ft-next-color-swatch {
+            width: 48px !important;
+            min-width: 48px !important;
+            height: 40px !important;
+            min-height: 40px !important;
+            padding: 0 !important;
+            border: 0 !important;
+            border-right: 1px solid #cbd5df !important;
+            border-radius: 0 !important;
+            background: transparent;
+            cursor: pointer;
+        }
+        .ft-next-color-swatch::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+        .ft-next-color-swatch::-webkit-color-swatch {
+            border: 0;
+        }
+        .ft-next-color-swatch::-moz-color-swatch {
+            border: 0;
         }
         .ft-next-color-value {
-            width: 100%;
-        }
-        .ft-next-swatch {
-            width: 42px;
-            height: 42px;
-            border-radius: 8px;
-            border: 1px solid #cbd5df;
-            background: var(--ft-color, transparent);
+            flex: 1 1 auto;
+            min-width: 0;
+            width: 100% !important;
+            height: 40px !important;
+            min-height: 40px !important;
+            margin: 0 !important;
+            padding: 0 12px !important;
+            border: 0 !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
         }
         .ft-next-sidebar {
             position: sticky;
@@ -717,8 +899,16 @@ add_action('admin_enqueue_scripts', function ($hook) {
             .ft-next-repeater-item {
                 grid-template-columns: 1fr;
             }
+            .ft-next-repeater-item--hero {
+                grid-template-columns: 1fr;
+            }
+            .ft-next-repeater-item--hero .ft-next-image-preview {
+                max-width: 420px;
+            }
             .ft-next-inline-grid--2,
             .ft-next-inline-grid--3,
+            .ft-next-inline-grid--badge-style,
+            .ft-next-inline-grid--compact-values,
             .ft-next-inline-grid--header {
                 grid-template-columns: 1fr;
             }
@@ -799,35 +989,25 @@ add_action('admin_enqueue_scripts', function ($hook) {
                 }).join('');
             }
 
-            $('.ft-next-color-picker').each(function() {
+            $('.ft-next-color-value').each(function() {
                 var input = $(this);
                 var raw = input.val();
-                var swatch = input.closest('.ft-next-color-row').find('.ft-next-swatch');
-                var pickerInput = input.closest('.ft-next-color-row').find('.ft-next-picker-source');
+                var swatch = input.closest('.ft-next-color-row').find('.ft-next-color-swatch');
 
-                function updateSwatch(value) {
-                    swatch.css('--ft-color', value || 'transparent');
+                function updatePreview(value) {
                     document.documentElement.style.setProperty(input.data('preview-var'), value || '');
                 }
 
-                pickerInput.val(cssToHex(raw));
-                updateSwatch(raw);
+                swatch.val(cssToHex(raw));
+                updatePreview(raw);
 
-                pickerInput.wpColorPicker({
-                    change: function(event, ui) {
-                        var picked = ui.color.toString();
-                        input.val(picked);
-                        updateSwatch(picked);
-                    },
-                    clear: function() {
-                        input.val('');
-                        updateSwatch('');
-                    }
+                swatch.on('input change', function() {
+                    input.val(swatch.val()).trigger('input');
                 });
 
                 input.on('input change', function() {
-                    updateSwatch(input.val());
-                    pickerInput.wpColorPicker('color', cssToHex(input.val()));
+                    updatePreview(input.val());
+                    swatch.val(cssToHex(input.val()));
                 });
             });
 
@@ -876,7 +1056,9 @@ add_action('admin_post_ft_next_homepage_save', function () {
     $current = ft_next_homepage_settings();
     $data = [];
     $text_fields = [
-        'phone', 'email', 'service_area', 'logo_text', 'logo_image', 'favicon_image', 'logo_size', 'cta_label', 'hero_badge',
+        'phone', 'email', 'service_area', 'logo_text', 'logo_image', 'favicon_image', 'logo_size', 'cta_label',
+        'facebook_url', 'instagram_url', 'linkedin_url',
+        'seo_title', 'seo_canonical_url', 'seo_robots', 'seo_og_title', 'seo_og_image', 'hero_badge',
         'hero_badge_font_size', 'hero_badge_padding_x', 'hero_badge_padding_y',
         'hero_title', 'hero_highlight', 'hero_badge_animation_location', 'hero_badge_animation_speed', 'form_title', 'form_subtitle',
         'process_title', 'comparison_title', 'comparison_button',
@@ -893,9 +1075,13 @@ add_action('admin_post_ft_next_homepage_save', function () {
         'deals_includes_title', 'deals_popup_eyebrow', 'deals_popup_title',
         'deals_popup_button', 'deals_popup_steps_title', 'testimonials_title',
         'newsletter_title', 'newsletter_text', 'newsletter_button',
+        'footer_about_title', 'footer_categories_title', 'footer_help_title',
+        'footer_policies_title', 'footer_copyright',
     ];
     $textarea_fields = [
         'hero_text', 'process_text', 'comparison_text', 'cta_text', 'footer_about',
+        'footer_about_links', 'footer_help_links', 'footer_policy_links', 'footer_bottom_links',
+        'seo_description', 'seo_og_description',
         'category_text', 'guarantee_text', 'deals_text', 'deals_body',
         'deals_includes', 'deals_popup_intro', 'deals_popup_steps',
         'deals_popup_terms', 'deals_popup_terms_extra',
@@ -1023,7 +1209,8 @@ function ft_next_homepage_field($settings, $field, $label, $type = 'text') {
         return;
     }
 
-    echo '<tr><th scope="row"><label for="' . esc_attr($field) . '">' . esc_html($label) . '</label></th><td>';
+    $row_class = $type === 'color' ? ' class="ft-next-color-field"' : '';
+    echo '<tr' . $row_class . '><th scope="row"><label for="' . esc_attr($field) . '">' . esc_html($label) . '</label></th><td>';
     if ($type === 'textarea') {
         echo '<textarea id="' . esc_attr($field) . '" name="' . esc_attr($field) . '" rows="4" class="large-text">' . esc_textarea($value) . '</textarea>';
     } elseif ($type === 'image') {
@@ -1042,11 +1229,9 @@ function ft_next_homepage_field($settings, $field, $label, $type = 'text') {
             'foreground_color' => '--ft-fg',
         ][$field] ?? '';
         echo '<div class="ft-next-color-row">';
-        echo '<input type="text" class="ft-next-picker-source" value="">';
-        echo '<input id="' . esc_attr($field) . '" name="' . esc_attr($field) . '" type="text" class="regular-text ft-next-color-picker ft-next-color-value" data-preview-var="' . esc_attr($preview_var) . '" value="' . esc_attr($value) . '">';
-        echo '<span class="ft-next-swatch" aria-hidden="true"></span>';
+        echo '<input type="color" class="ft-next-color-swatch" aria-label="Select color">';
+        echo '<input id="' . esc_attr($field) . '" name="' . esc_attr($field) . '" type="text" aria-label="Color code" class="regular-text ft-next-color-value" data-preview-var="' . esc_attr($preview_var) . '" value="' . esc_attr($value) . '">';
         echo '</div>';
-        echo '<p class="description">Use the selector, or type an exact CSS color value like <code>lab(76 3.16 65.32)</code>.</p>';
     } else {
         echo '<input id="' . esc_attr($field) . '" name="' . esc_attr($field) . '" type="text" class="regular-text" value="' . esc_attr($value) . '">';
     }
@@ -1056,10 +1241,36 @@ function ft_next_homepage_field($settings, $field, $label, $type = 'text') {
 function ft_next_homepage_color_control($settings, $field) {
     $value = $settings[$field] ?? '';
     echo '<div class="ft-next-color-row">';
-    echo '<input type="text" class="ft-next-picker-source" value="">';
-    echo '<input id="' . esc_attr($field) . '" name="' . esc_attr($field) . '" type="text" class="regular-text ft-next-color-picker ft-next-color-value" value="' . esc_attr($value) . '">';
-    echo '<span class="ft-next-swatch" aria-hidden="true"></span>';
+    echo '<input type="color" class="ft-next-color-swatch" aria-label="Select color">';
+    echo '<input id="' . esc_attr($field) . '" name="' . esc_attr($field) . '" type="text" aria-label="Color code" class="regular-text ft-next-color-value" value="' . esc_attr($value) . '">';
     echo '</div>';
+}
+
+function ft_next_homepage_gradient_select($name, $value) {
+    $options = [
+        'to bottom' => 'Top to bottom',
+        'to top' => 'Bottom to top',
+        'to right' => 'Left to right',
+        'to left' => 'Right to left',
+        'to bottom right' => 'Top left to bottom right',
+        'to bottom left' => 'Top right to bottom left',
+        'to top right' => 'Bottom left to top right',
+        'to top left' => 'Bottom right to top left',
+        '45deg' => '45 degrees',
+        '90deg' => '90 degrees',
+        '135deg' => '135 degrees',
+        '180deg' => '180 degrees',
+    ];
+
+    if ($value !== '' && !isset($options[$value])) {
+        $options = [$value => 'Current custom value: ' . $value] + $options;
+    }
+
+    echo '<select name="' . esc_attr($name) . '">';
+    foreach ($options as $option_value => $option_label) {
+        echo '<option value="' . esc_attr($option_value) . '" ' . selected($value, $option_value, false) . '>' . esc_html($option_label) . '</option>';
+    }
+    echo '</select>';
 }
 
 function ft_next_homepage_gradient_controls($settings, $prefix) {
@@ -1071,8 +1282,10 @@ function ft_next_homepage_gradient_controls($settings, $prefix) {
     ft_next_homepage_color_control($settings, $prefix . '_bg_color_2');
     echo '</label>';
     echo '<label>Gradient location';
-    echo '<input name="' . esc_attr($prefix . '_bg_location') . '" type="text" value="' . esc_attr($settings[$prefix . '_bg_location'] ?? 'to bottom') . '">';
-    echo '<span class="description">Examples: <code>to bottom</code>, <code>to right</code>, <code>135deg</code>.</span>';
+    ft_next_homepage_gradient_select(
+        $prefix . '_bg_location',
+        $settings[$prefix . '_bg_location'] ?? 'to bottom'
+    );
     echo '</label>';
     echo '</div>';
 }
@@ -1107,6 +1320,45 @@ function ft_next_homepage_render_admin() {
 
             <div class="ft-next-grid">
                 <div>
+                    <?php ft_next_homepage_card_open('Home SEO'); ?>
+                        <div class="ft-next-field-stack">
+                            <label>
+                                SEO title
+                                <input name="seo_title" type="text" maxlength="70" value="<?php echo esc_attr($settings['seo_title']); ?>">
+                                <small>Recommended: 50-60 characters.</small>
+                            </label>
+                            <label>
+                                Meta description
+                                <textarea name="seo_description" rows="3" maxlength="170"><?php echo esc_textarea($settings['seo_description']); ?></textarea>
+                                <small>Recommended: 140-160 characters.</small>
+                            </label>
+                            <div class="ft-next-inline-grid ft-next-inline-grid--2">
+                                <label>
+                                    Canonical URL
+                                    <input name="seo_canonical_url" type="url" value="<?php echo esc_attr($settings['seo_canonical_url']); ?>">
+                                </label>
+                                <label>
+                                    Robots
+                                    <input name="seo_robots" type="text" value="<?php echo esc_attr($settings['seo_robots']); ?>">
+                                </label>
+                            </div>
+                            <div class="ft-next-inline-grid ft-next-inline-grid--2">
+                                <label>
+                                    Social sharing title
+                                    <input name="seo_og_title" type="text" value="<?php echo esc_attr($settings['seo_og_title']); ?>">
+                                </label>
+                                <label>
+                                    Social sharing image
+                                    <input name="seo_og_image" type="url" value="<?php echo esc_attr($settings['seo_og_image']); ?>">
+                                </label>
+                            </div>
+                            <label>
+                                Social sharing description
+                                <textarea name="seo_og_description" rows="3"><?php echo esc_textarea($settings['seo_og_description']); ?></textarea>
+                            </label>
+                        </div>
+                    <?php ft_next_homepage_card_close(); ?>
+
                     <?php ft_next_homepage_card_open('Style'); ?>
                         <table class="form-table" role="presentation">
                             <?php
@@ -1230,7 +1482,7 @@ function ft_next_homepage_render_admin() {
 
                     <?php ft_next_homepage_card_open('Hero'); ?>
                         <div class="ft-next-repeater">
-                            <div class="ft-next-repeater-item ft-next-repeater-item--single">
+                            <div class="ft-next-repeater-item ft-next-repeater-item--hero">
                                 <h3>Hero settings</h3>
                                 <div class="ft-next-field-stack">
                                     <div class="ft-next-subgroup">
@@ -1261,7 +1513,7 @@ function ft_next_homepage_render_admin() {
 
                                     <div class="ft-next-subgroup">
                                         <h4>Promo badge style</h4>
-                                        <div class="ft-next-inline-grid ft-next-inline-grid--3" style="margin-bottom:0;">
+                                        <div class="ft-next-inline-grid ft-next-inline-grid--badge-style" style="margin-bottom:0;">
                                             <label>
                                                 Background color
                                                 <?php ft_next_homepage_color_control($settings, 'hero_badge_bg_color'); ?>
@@ -1275,7 +1527,7 @@ function ft_next_homepage_render_admin() {
                                                 <input name="hero_badge_font_size" type="text" value="<?php echo esc_attr($settings['hero_badge_font_size']); ?>">
                                             </label>
                                         </div>
-                                        <div class="ft-next-inline-grid ft-next-inline-grid--2" style="margin-bottom:0;">
+                                        <div class="ft-next-inline-grid ft-next-inline-grid--compact-values" style="margin-bottom:0;">
                                             <label>
                                                 Horizontal padding
                                                 <input name="hero_badge_padding_x" type="text" value="<?php echo esc_attr($settings['hero_badge_padding_x']); ?>">
@@ -1302,7 +1554,7 @@ function ft_next_homepage_render_admin() {
                                         <div class="ft-next-inline-grid ft-next-inline-grid--2" style="margin-bottom:0;">
                                             <label>
                                                 Gradient location
-                                                <input name="hero_badge_animation_location" type="text" value="<?php echo esc_attr($settings['hero_badge_animation_location']); ?>">
+                                                <?php ft_next_homepage_gradient_select('hero_badge_animation_location', $settings['hero_badge_animation_location']); ?>
                                             </label>
                                             <label>
                                                 Animation speed
@@ -1328,11 +1580,11 @@ function ft_next_homepage_render_admin() {
                                 <div class="ft-next-media-panel">
                                     <div class="ft-next-subgroup">
                                         <h4>Background image</h4>
-                                        <div class="ft-next-inline-grid ft-next-inline-grid--2" style="margin-bottom:0;">
+                                        <div class="ft-next-inline-grid ft-next-hero-background-controls" style="margin-bottom:0;">
                                             <?php ft_next_homepage_field($settings, 'hero_show_background', 'Show background', 'checkbox'); ?>
                                             <?php ft_next_homepage_field($settings, 'hero_show_overlay', 'Show overlay', 'checkbox'); ?>
                                         </div>
-                                        <label>
+                                        <label class="ft-next-hero-opacity">
                                             Overlay transparency
                                             <input name="hero_overlay_opacity" type="text" value="<?php echo esc_attr($settings['hero_overlay_opacity']); ?>">
                                             <span class="description">Use 0 to 1. Example: <code>0.72</code>, <code>0.35</code>, or <code>0</code>.</span>
@@ -1415,15 +1667,13 @@ function ft_next_homepage_render_admin() {
                                 <textarea name="comparison_text" rows="4"><?php echo esc_textarea($settings['comparison_text']); ?></textarea>
                             </label>
                         </div>
-                        <table class="form-table" role="presentation">
-                            <tr>
-                                <th scope="row"><label for="comparison_rows">Table rows</label></th>
-                                <td>
-                                    <textarea id="comparison_rows" name="comparison_rows" rows="10" class="large-text"><?php echo esc_textarea(implode("\n", $settings['comparison_rows'])); ?></textarea>
-                                    <p class="description">One row per line. Each row gets a check mark under Floors Today.</p>
-                                </td>
-                            </tr>
-                        </table>
+                        <div class="ft-next-field-stack">
+                            <label for="comparison_rows">
+                                Table rows
+                                <textarea id="comparison_rows" name="comparison_rows" rows="10" class="large-text"><?php echo esc_textarea(implode("\n", $settings['comparison_rows'])); ?></textarea>
+                                <small>One row per line. Each row gets a check mark under Floors Today.</small>
+                            </label>
+                        </div>
                     <?php ft_next_homepage_card_close(); ?>
 
                     <?php ft_next_homepage_card_open('Categories'); ?>
@@ -1604,17 +1854,23 @@ function ft_next_homepage_render_admin() {
                             <textarea name="deals_popup_terms_extra" rows="4" class="large-text"><?php echo esc_textarea($settings['deals_popup_terms_extra']); ?></textarea>
                         </label>
 
-                        <table class="widefat striped ft-next-table">
-                            <thead><tr><th>Offer title</th><th>Description</th></tr></thead>
-                            <tbody>
+                        <div class="ft-next-repeater">
                             <?php for ($i = 0; $i < 4; $i++) : $offer = $settings['offers'][$i] ?? ['title' => '', 'description' => '']; ?>
-                                <tr>
-                                    <td><input name="offer_title[]" type="text" value="<?php echo esc_attr($offer['title']); ?>"></td>
-                                    <td><textarea name="offer_description[]" rows="3"><?php echo esc_textarea($offer['description']); ?></textarea></td>
-                                </tr>
+                                <div class="ft-next-repeater-item ft-next-repeater-item--single">
+                                    <h3>Offer <?php echo esc_html((string) ($i + 1)); ?></h3>
+                                    <div class="ft-next-field-stack">
+                                        <label>
+                                            Offer title
+                                            <input name="offer_title[]" type="text" value="<?php echo esc_attr($offer['title']); ?>">
+                                        </label>
+                                        <label>
+                                            Description
+                                            <textarea name="offer_description[]" rows="3"><?php echo esc_textarea($offer['description']); ?></textarea>
+                                        </label>
+                                    </div>
+                                </div>
                             <?php endfor; ?>
-                            </tbody>
-                        </table>
+                        </div>
                     <?php ft_next_homepage_card_close(); ?>
 
                     <?php ft_next_homepage_card_open('Testimonials'); ?>
@@ -1686,6 +1942,64 @@ function ft_next_homepage_render_admin() {
                                 Footer about text
                                 <textarea name="footer_about" rows="4"><?php echo esc_textarea($settings['footer_about']); ?></textarea>
                             </label>
+                            <h3>Footer menus</h3>
+                            <div class="ft-next-inline-grid ft-next-inline-grid--2">
+                                <label>
+                                    About menu title
+                                    <input name="footer_about_title" type="text" value="<?php echo esc_attr($settings['footer_about_title']); ?>">
+                                </label>
+                                <label>
+                                    Categories menu title
+                                    <input name="footer_categories_title" type="text" value="<?php echo esc_attr($settings['footer_categories_title']); ?>">
+                                </label>
+                                <label>
+                                    Help menu title
+                                    <input name="footer_help_title" type="text" value="<?php echo esc_attr($settings['footer_help_title']); ?>">
+                                </label>
+                                <label>
+                                    Policies menu title
+                                    <input name="footer_policies_title" type="text" value="<?php echo esc_attr($settings['footer_policies_title']); ?>">
+                                </label>
+                            </div>
+                            <div class="ft-next-inline-grid ft-next-inline-grid--3">
+                                <label>
+                                    About menu links
+                                    <textarea name="footer_about_links" rows="6"><?php echo esc_textarea($settings['footer_about_links']); ?></textarea>
+                                </label>
+                                <label>
+                                    Help menu links
+                                    <textarea name="footer_help_links" rows="6"><?php echo esc_textarea($settings['footer_help_links']); ?></textarea>
+                                </label>
+                                <label>
+                                    Policy menu links
+                                    <textarea name="footer_policy_links" rows="6"><?php echo esc_textarea($settings['footer_policy_links']); ?></textarea>
+                                </label>
+                            </div>
+                            <p class="description">Enter one link per line using <code>Label|URL</code>. Category links use the main Header menu above.</p>
+                            <label>
+                                Bottom footer links
+                                <textarea name="footer_bottom_links" rows="5"><?php echo esc_textarea($settings['footer_bottom_links']); ?></textarea>
+                                <small>One link per line using Label|URL.</small>
+                            </label>
+                            <label>
+                                Copyright text
+                                <input name="footer_copyright" type="text" value="<?php echo esc_attr($settings['footer_copyright']); ?>">
+                                <small>Use {year} for the current year.</small>
+                            </label>
+                            <div class="ft-next-inline-grid ft-next-inline-grid--3">
+                                <label>
+                                    Facebook URL
+                                    <input name="facebook_url" type="url" value="<?php echo esc_attr($settings['facebook_url']); ?>">
+                                </label>
+                                <label>
+                                    Instagram URL
+                                    <input name="instagram_url" type="url" value="<?php echo esc_attr($settings['instagram_url']); ?>">
+                                </label>
+                                <label>
+                                    LinkedIn URL
+                                    <input name="linkedin_url" type="url" value="<?php echo esc_attr($settings['linkedin_url']); ?>">
+                                </label>
+                            </div>
                         </div>
                     <?php ft_next_homepage_card_close(); ?>
                 </div>

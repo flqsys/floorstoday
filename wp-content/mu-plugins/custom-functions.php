@@ -12,6 +12,18 @@ if (!defined('ABSPATH')) {
 
 // Custom site code by Faris.
 
+// Load the shared custom stylesheet on public WordPress pages.
+add_action('wp_enqueue_scripts', function () {
+    $custom_css = __DIR__ . '/custom.css';
+
+    wp_enqueue_style(
+        'ft-site-custom',
+        plugin_dir_url(__FILE__) . 'custom.css',
+        [],
+        is_readable($custom_css) ? (string) filemtime($custom_css) : null
+    );
+});
+
 // Hide WooCommerce marketing menu items.
 add_filter('woocommerce_marketing_menu_items', '__return_empty_array');
 
@@ -158,3 +170,7 @@ add_action('wp_before_admin_bar_render', function () {
         'meta' => $site_node->meta,
     ]);
 }, 999);
+// Hide WooCommerce prices across product, cart, and checkout views. Added by Faris.
+add_filter('woocommerce_get_price_html', '__return_empty_string');
+add_filter('woocommerce_cart_item_price', '__return_empty_string');
+add_filter('woocommerce_cart_item_subtotal', '__return_empty_string');

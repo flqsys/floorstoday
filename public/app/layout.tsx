@@ -9,14 +9,26 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
-  title: 'Floors Today | Premium Flooring Installation in Ontario | Free In-Home Estimates',
-  description: 'Ontario\'s trusted flooring experts. All-inclusive pricing with no hidden fees. Free in-home estimates for hardwood, laminate, vinyl, and carpet installation. 50.50.50 Sale - Save up to 50% on select styles.',
-  keywords: 'flooring Ontario, hardwood flooring, laminate flooring, vinyl flooring, carpet installation, free flooring estimate, flooring installation Toronto, flooring company Ontario',
+  metadataBase: new URL('https://floorstoday.ca'),
+  title: 'Floors Today | Flooring Installation in Ontario',
+  description: 'Shop premium hardwood, laminate, vinyl and carpet flooring with free in-home estimates and professional installation across Ontario.',
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
-    title: 'Floors Today | Premium Flooring Installation in Ontario',
-    description: 'All-inclusive pricing with no hidden fees. Free in-home estimates for hardwood, laminate, vinyl, and carpet.',
+    title: 'Floors Today | Premium Flooring in Ontario',
+    description: 'Free in-home flooring estimates, transparent pricing and professional installation across Ontario.',
+    url: '/',
+    siteName: 'Floors Today',
+    images: ['/public/images/hero-living-room.png'],
     type: 'website',
     locale: 'en_CA',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Floors Today | Premium Flooring in Ontario',
+    description: 'Free in-home flooring estimates, transparent pricing and professional installation across Ontario.',
+    images: ['/public/images/hero-living-room.png'],
   },
   robots: {
     index: true,

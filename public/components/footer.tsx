@@ -1,28 +1,19 @@
 "use client"
 
 import { useState } from "react"
-import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { MapPin, Phone, Mail } from "lucide-react"
 import { useHomepageSettingsStatus } from "@/components/homepage-settings-provider"
 
-const footerLinks = {
-  aboutUs: [
-    { name: "About Us", href: "#about" },
-    { name: "Contact Us", href: "#contact" },
-  ],
-  helpArea: [
-    { name: "How Shop at Home Works", href: "#how-it-works" },
-    { name: "Product Care", href: "#care" },
-    { name: "Contact", href: "#contact" },
-  ],
-  policies: [
-    { name: "Terms Of Use", href: "#terms" },
-    { name: "FAQs", href: "#faq" },
-    { name: "Privacy Policy", href: "#privacy" },
-    { name: "Warranty Information", href: "#warranty" },
-  ],
+function parseMenu(value: string) {
+  return value.split(/\r?\n/).map((line) => {
+    const [label, ...urlParts] = line.split("|")
+    return {
+      label: label.trim(),
+      url: urlParts.join("|").trim(),
+    }
+  }).filter((item) => item.label && item.url)
 }
 
 export function Footer() {
@@ -30,6 +21,11 @@ export function Footer() {
   const { settings, isLoaded } = useHomepageSettingsStatus()
   const logoSrc = settings.logo_image
   const phoneHref = `tel:${settings.phone.replace(/[^\d+]/g, "")}`
+  const aboutLinks = parseMenu(settings.footer_about_links)
+  const helpLinks = parseMenu(settings.footer_help_links)
+  const policyLinks = parseMenu(settings.footer_policy_links)
+  const bottomLinks = parseMenu(settings.footer_bottom_links)
+  const copyright = settings.footer_copyright.replaceAll("{year}", String(new Date().getFullYear()))
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -69,13 +65,15 @@ export function Footer() {
       </div>
 
       <div className="mx-auto max-w-[1280px] px-3 sm:px-4 lg:px-4 py-12">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-6">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-6 lg:gap-x-6">
           <div className="lg:col-span-2">
             <a href="/" className="inline-flex items-center text-2xl font-bold">
               {logoSrc ? (
                 <img
                   src={logoSrc}
                   alt={settings.logo_text}
+                  width={250}
+                  height={80}
                   className="h-auto object-contain"
                   style={{ width: settings.logo_size, maxWidth: "100%" }}
                   loading="eager"
@@ -88,66 +86,79 @@ export function Footer() {
             <p className="mt-4 text-sm text-background/70 leading-relaxed">
               {settings.footer_about}
             </p>
-            <div className="mt-6 flex items-center gap-4">
-              <a href="#" className="text-background/70 hover:text-background" aria-label="Facebook">
-                Facebook
-              </a>
-              <a href="#" className="text-background/70 hover:text-background" aria-label="Instagram">
-                Instagram
-              </a>
-              <a href="#" className="text-background/70 hover:text-background" aria-label="LinkedIn">
-                LinkedIn
-              </a>
-            </div>
+            {[
+              ["Facebook", settings.facebook_url],
+              ["Instagram", settings.instagram_url],
+              ["LinkedIn", settings.linkedin_url],
+            ].some(([, url]) => Boolean(url)) ? (
+              <div className="mt-6 flex items-center gap-4">
+                {[
+                  ["Facebook", settings.facebook_url],
+                  ["Instagram", settings.instagram_url],
+                  ["LinkedIn", settings.linkedin_url],
+                ].filter(([, url]) => Boolean(url)).map(([label, url]) => (
+                  <a
+                    key={label}
+                    href={url}
+                    className="text-background/70 hover:text-background"
+                    aria-label={label}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {label}
+                  </a>
+                ))}
+              </div>
+            ) : null}
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4">About Us</h4>
+            <h4 className="font-semibold mb-4">{settings.footer_about_title}</h4>
             <ul className="space-y-3">
-              {footerLinks.aboutUs.map((link) => (
-                <li key={link.name}>
-                  <Link href={link.href} className="text-sm text-background/70 hover:text-background">
-                    {link.name}
-                  </Link>
+              {aboutLinks.map((link) => (
+                <li key={`${link.label}-${link.url}`}>
+                  <a href={link.url} className="text-sm text-background/70 hover:text-background lg:whitespace-nowrap">
+                    {link.label}
+                  </a>
                 </li>
               ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4">Categories</h4>
+            <h4 className="font-semibold mb-4">{settings.footer_categories_title}</h4>
             <ul className="space-y-3">
               {settings.nav_items.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-sm text-background/70 hover:text-background">
+                  <a href={link.href} className="text-sm text-background/70 hover:text-background lg:whitespace-nowrap">
                     {link.name}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4">Help Area</h4>
+            <h4 className="font-semibold mb-4">{settings.footer_help_title}</h4>
             <ul className="space-y-3">
-              {footerLinks.helpArea.map((link) => (
-                <li key={link.name}>
-                  <Link href={link.href} className="text-sm text-background/70 hover:text-background">
-                    {link.name}
-                  </Link>
+              {helpLinks.map((link) => (
+                <li key={`${link.label}-${link.url}`}>
+                  <a href={link.url} className="text-sm text-background/70 hover:text-background lg:whitespace-nowrap">
+                    {link.label}
+                  </a>
                 </li>
               ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4">Our Policies</h4>
+            <h4 className="font-semibold mb-4">{settings.footer_policies_title}</h4>
             <ul className="space-y-3">
-              {footerLinks.policies.map((link) => (
-                <li key={link.name}>
-                  <Link href={link.href} className="text-sm text-background/70 hover:text-background">
-                    {link.name}
-                  </Link>
+              {policyLinks.map((link) => (
+                <li key={`${link.label}-${link.url}`}>
+                  <a href={link.url} className="text-sm text-background/70 hover:text-background lg:whitespace-nowrap">
+                    {link.label}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -173,12 +184,13 @@ export function Footer() {
 
         <div className="mt-8 pt-8 border-t border-background/10">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-sm text-background/70">
-            <p>Floors Today Copyright {new Date().getFullYear()} All Rights Reserved</p>
-            <div className="flex items-center gap-6">
-              <Link href="#careers" className="hover:text-background">Careers</Link>
-              <Link href="#privacy" className="hover:text-background">Privacy Policy</Link>
-              <Link href="#sitemap" className="hover:text-background">Sitemap</Link>
-              <Link href="#terms" className="hover:text-background">Terms Of Use</Link>
+            <p>{copyright}</p>
+            <div className="flex flex-wrap items-center gap-6">
+              {bottomLinks.map((link) => (
+                <a key={`${link.label}-${link.url}`} href={link.url} className="hover:text-background">
+                  {link.label}
+                </a>
+              ))}
             </div>
           </div>
         </div>

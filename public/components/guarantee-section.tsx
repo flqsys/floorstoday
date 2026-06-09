@@ -21,6 +21,10 @@ export function GuaranteeSection() {
             <img
               src={settings.guarantee_image}
               alt={settings.guarantee_title}
+              width={600}
+              height={400}
+              loading="lazy"
+              decoding="async"
               className="rounded-2xl shadow-lg"
             />
             <div className="absolute -bottom-6 -right-6 bg-secondary text-secondary-foreground p-4 rounded-xl shadow-lg hidden md:block">

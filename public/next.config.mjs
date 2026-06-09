@@ -5,9 +5,6 @@ const nextConfig = {
   output: 'export',
   basePath,
   assetPrefix: basePath,
-  typescript: {
-    ignoreBuildErrors: true,
-  },
   images: {
     unoptimized: true,
   },

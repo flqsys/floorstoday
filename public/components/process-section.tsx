@@ -1,6 +1,5 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Calendar, FileText, Wrench } from "lucide-react"
 import { useHomepageSettings } from "@/components/homepage-settings-provider"
@@ -11,6 +10,7 @@ export function ProcessSection() {
 
   return (
     <section
+      id="how-it-works"
       className="py-20"
       style={{
         background: `linear-gradient(${settings.process_bg_location}, ${settings.process_bg_color_1}, ${settings.process_bg_color_2})`,
@@ -40,6 +40,10 @@ export function ProcessSection() {
                 <img
                   src={step.image}
                   alt={step.title}
+                  width={400}
+                  height={300}
+                  loading="lazy"
+                  decoding="async"
                   className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute top-4 left-4">
@@ -55,9 +59,12 @@ export function ProcessSection() {
                 </div>
                 <p className="text-muted-foreground leading-relaxed">{step.description}</p>
                 {step.button && (
-                  <Button asChild className="mt-4 bg-primary hover:bg-primary/90 text-primary-foreground">
-                    <Link href="#estimate">{step.button}</Link>
-                  </Button>
+                  <Link
+                    href="#estimate"
+                    className="mt-4 inline-flex min-h-10 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-bold text-primary-foreground transition-colors hover:bg-primary/90"
+                  >
+                    {step.button}
+                  </Link>
                 )}
               </div>
             </article>

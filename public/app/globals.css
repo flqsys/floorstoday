@@ -131,6 +131,11 @@
 }
 
 @layer components {
+  .ft-homepage-shell main > section:not(:first-child) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 760px;
+  }
+
   .ft-homepage-shell [data-slot="button"],
   .ft-homepage-shell button[type="button"],
   .ft-homepage-shell button[type="submit"],

@@ -144,7 +144,7 @@ export function HeroSection() {
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-[1280px] px-3 py-16 sm:px-4 lg:px-4">
-        <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-center">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(540px,560px)] lg:gap-10 items-center">
           {/* Left Content */}
           <div className="text-background">
             {/* Trust Badge */}
@@ -221,7 +221,7 @@ export function HeroSection() {
 
           <Card
             id="estimate"
-            className="scroll-mt-28 w-full max-w-[520px] justify-self-center rounded-[20px] border-0 bg-white shadow-2xl lg:justify-self-end"
+            className="scroll-mt-28 w-full max-w-[560px] justify-self-center rounded-[20px] border-0 bg-white shadow-2xl lg:justify-self-end"
           >
             <CardContent className="p-6 sm:p-9">
               <div className="text-center">
@@ -296,7 +296,7 @@ export function HeroSection() {
                           key={option}
                           type="button"
                           onClick={() => setFormData({ ...formData, flooringType: option })}
-                          className={`min-h-14 rounded-lg border px-4 text-left text-base font-medium transition-colors ${
+                          className={`min-h-14 rounded-lg border px-4 text-left text-base font-medium transition-colors sm:whitespace-nowrap ${
                             formData.flooringType === option
                               ? "border-primary bg-primary/5 text-primary"
                               : "border-stone-200 bg-white text-slate-900 hover:border-primary"

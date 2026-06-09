@@ -4,6 +4,7 @@ import {
   createContext,
   useContext,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useState,
   type CSSProperties,
@@ -19,6 +20,12 @@ const endpoint =
   process.env.NEXT_PUBLIC_WORDPRESS_HOMEPAGE_ENDPOINT ||
   "/wp-json/floors-today/v1/homepage"
 
+declare global {
+  interface Window {
+    __FT_HOMEPAGE_SETTINGS__?: Partial<HomepageSettings>
+  }
+}
+
 type HomepageSettingsContextValue = {
   settings: HomepageSettings
   isLoaded: boolean
@@ -32,7 +39,15 @@ const HomepageSettingsContext = createContext<HomepageSettingsContextValue>({
 export function HomepageSettingsProvider({ children }: { children: ReactNode }) {
   const [settings, setSettings] = useState<HomepageSettings>(homepageDefaults)
   const [isLoaded, setIsLoaded] = useState(false)
-  const [loadError, setLoadError] = useState(false)
+
+  useLayoutEffect(() => {
+    if (!window.__FT_HOMEPAGE_SETTINGS__) {
+      return
+    }
+
+    setSettings(mergeHomepageSettings(window.__FT_HOMEPAGE_SETTINGS__))
+    setIsLoaded(true)
+  }, [])
 
   useEffect(() => {
     let alive = true
@@ -53,7 +68,7 @@ export function HomepageSettingsProvider({ children }: { children: ReactNode }) 
       })
       .catch(() => {
         if (alive) {
-          setLoadError(true)
+          setIsLoaded(true)
         }
       })
 
@@ -122,27 +137,7 @@ export function HomepageSettingsProvider({ children }: { children: ReactNode }) 
   return (
     <HomepageSettingsContext.Provider value={{ settings, isLoaded }}>
       <div className="ft-homepage-shell" style={style}>
-        <div
-          className={`fixed inset-0 z-[100] flex items-center justify-center bg-white transition-opacity duration-200 ${
-            isLoaded ? "pointer-events-none opacity-0" : "opacity-100"
-          }`}
-          aria-hidden={isLoaded}
-        >
-          {loadError ? (
-            <p className="px-6 text-center text-sm font-medium text-slate-700">
-              Homepage settings are temporarily unavailable.
-            </p>
-          ) : (
-            <span className="h-9 w-9 animate-spin rounded-full border-2 border-slate-200 border-t-slate-700" />
-          )}
-        </div>
-        <div
-          className={`transition-opacity duration-200 ${
-            isLoaded ? "opacity-100" : "pointer-events-none opacity-0"
-          }`}
-        >
-          {children}
-        </div>
+        {children}
       </div>
     </HomepageSettingsContext.Provider>
   )

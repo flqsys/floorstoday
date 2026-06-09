@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { ArrowRight, Check, Gift } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
@@ -10,6 +10,9 @@ import { useHomepageSettings } from "@/components/homepage-settings-provider"
 export function DealsSection() {
   const settings = useHomepageSettings()
   const [isOfferOpen, setIsOfferOpen] = useState(false)
+  const dialogRef = useRef<HTMLElement>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
+  const previousFocusRef = useRef<HTMLElement | null>(null)
   const includedItems = settings.deals_includes.split(/\r?\n/).map((item) => item.trim()).filter(Boolean)
   const popupSteps = settings.deals_popup_steps.split(/\r?\n/).map((line) => {
     const [title, ...descriptionParts] = line.split("|")
@@ -23,8 +26,35 @@ export function DealsSection() {
     if (!isOfferOpen) return
 
     const previousOverflow = document.body.style.overflow
+    previousFocusRef.current = document.activeElement as HTMLElement | null
+    closeButtonRef.current?.focus()
+
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setIsOfferOpen(false)
+      if (event.key === "Escape") {
+        setIsOfferOpen(false)
+        return
+      }
+
+      if (event.key !== "Tab" || !dialogRef.current) return
+
+      const focusable = Array.from(
+        dialogRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      )
+
+      if (!focusable.length) return
+
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
     }
 
     document.body.style.overflow = "hidden"
@@ -33,6 +63,7 @@ export function DealsSection() {
     return () => {
       document.body.style.overflow = previousOverflow
       window.removeEventListener("keydown", closeOnEscape)
+      previousFocusRef.current?.focus()
     }
   }, [isOfferOpen])
 
@@ -160,12 +191,14 @@ export function DealsSection() {
           }}
         >
           <section
+            ref={dialogRef}
             role="dialog"
             aria-modal="true"
             aria-labelledby="offer-details-title"
             className="relative w-full max-w-6xl overflow-hidden rounded-lg bg-white shadow-2xl"
           >
             <button
+              ref={closeButtonRef}
               type="button"
               onClick={() => setIsOfferOpen(false)}
               className="absolute right-3 top-3 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-slate-300 bg-white text-2xl font-normal leading-none text-slate-950 shadow-md transition-colors hover:bg-slate-100"

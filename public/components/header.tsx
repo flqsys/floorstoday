@@ -42,6 +42,8 @@ export function Header() {
               <img
                 src={logoSrc}
                 alt={settings.logo_text}
+                width={250}
+                height={80}
                 className="block h-auto object-contain"
                 style={{ width: settings.logo_size }}
                 loading="eager"

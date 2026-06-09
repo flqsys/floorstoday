@@ -44,6 +44,9 @@ export type HomepageSettings = {
   cta_label: string
   show_header: string | boolean
   show_footer: string | boolean
+  facebook_url: string
+  instagram_url: string
+  linkedin_url: string
   button_radius: string
   button_font_weight: string
   button_text_transform: string
@@ -138,6 +141,15 @@ export type HomepageSettings = {
   newsletter_text: string
   newsletter_button: string
   footer_about: string
+  footer_about_title: string
+  footer_about_links: string
+  footer_categories_title: string
+  footer_help_title: string
+  footer_help_links: string
+  footer_policies_title: string
+  footer_policy_links: string
+  footer_bottom_links: string
+  footer_copyright: string
   footer_bg_color_1: string
   footer_bg_color_2: string
   footer_bg_location: string
@@ -161,6 +173,9 @@ export const homepageDefaults: HomepageSettings = {
   cta_label: "Free Estimate",
   show_header: "1",
   show_footer: "1",
+  facebook_url: "",
+  instagram_url: "",
+  linkedin_url: "",
   button_radius: "8px",
   button_font_weight: "700",
   button_text_transform: "none",
@@ -355,6 +370,15 @@ export const homepageDefaults: HomepageSettings = {
   newsletter_button: "Subscribe",
   footer_about:
     "We believe in transparent pricing. That's why our all-inclusive estimates include every essential detail in delivering a seamless flooring experience with no unexpected costs.",
+  footer_about_title: "About Us",
+  footer_about_links: "About Us|/about-us/\nContact Us|/contact/",
+  footer_categories_title: "Categories",
+  footer_help_title: "Help Area",
+  footer_help_links: "How Shop at Home Works|#how-it-works\nProduct Care|/product-care/\nContact|/contact/",
+  footer_policies_title: "Our Policies",
+  footer_policy_links: "Terms Of Use|/terms-of-use/\nFAQs|/faqs/\nPrivacy Policy|/privacy-policy/\nWarranty Information|/warranty/",
+  footer_bottom_links: "Careers|/careers/\nPrivacy Policy|/privacy-policy/\nSitemap|/sitemap_index.xml\nTerms Of Use|/terms-of-use/",
+  footer_copyright: "Floors Today Copyright {year} All Rights Reserved",
   footer_bg_color_1: "oklch(0.20 0.02 30)",
   footer_bg_color_2: "oklch(0.20 0.02 30)",
   footer_bg_location: "to bottom",

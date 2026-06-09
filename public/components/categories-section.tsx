@@ -25,15 +25,26 @@ export function CategoriesSection() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {settings.categories.map((category) => (
-            <Link
-              key={category.slug}
-              href={`#${category.slug}`}
-              className="group relative aspect-[4/5] overflow-hidden rounded-xl"
-            >
+          {settings.categories.map((category) => {
+            const legacyAnchor = category.slug.replace("-hardwood", "")
+
+            return (
+              <Link
+                key={category.slug}
+                href="#estimate"
+                id={category.slug}
+                className="group relative aspect-[4/5] overflow-hidden rounded-xl scroll-mt-28"
+              >
+              {legacyAnchor !== category.slug ? (
+                <span id={legacyAnchor} className="absolute inset-x-0 top-0 scroll-mt-28" aria-hidden="true" />
+              ) : null}
               <img
                 src={category.image}
                 alt={category.name}
+                width={400}
+                height={500}
+                loading="lazy"
+                decoding="async"
                 className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
@@ -41,8 +52,9 @@ export function CategoriesSection() {
                 <h3 className="font-semibold text-lg">{category.name}</h3>
                 <p className="text-sm text-white/80 mt-1 hidden sm:block">{category.description}</p>
               </div>
-            </Link>
-          ))}
+              </Link>
+            )
+          })}
         </div>
       </div>
     </section>

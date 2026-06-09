@@ -1,13 +1,27 @@
 import { HeroSection } from "@/components/hero-section"
 import { ProcessSection } from "@/components/process-section"
-import { ComparisonSection } from "@/components/comparison-section"
-import { CategoriesSection } from "@/components/categories-section"
-import { GuaranteeSection } from "@/components/guarantee-section"
-import { DealsSection } from "@/components/deals-section"
-import { TestimonialsSection } from "@/components/testimonials-section"
-import { CTASection } from "@/components/cta-section"
+import dynamic from "next/dynamic"
 import { HomepageSettingsProvider } from "@/components/homepage-settings-provider"
 import { HeaderSlot, FooterSlot } from "@/components/homepage-visibility-slots"
+
+const ComparisonSection = dynamic(() =>
+  import("@/components/comparison-section").then((module) => module.ComparisonSection),
+)
+const CategoriesSection = dynamic(() =>
+  import("@/components/categories-section").then((module) => module.CategoriesSection),
+)
+const GuaranteeSection = dynamic(() =>
+  import("@/components/guarantee-section").then((module) => module.GuaranteeSection),
+)
+const DealsSection = dynamic(() =>
+  import("@/components/deals-section").then((module) => module.DealsSection),
+)
+const TestimonialsSection = dynamic(() =>
+  import("@/components/testimonials-section").then((module) => module.TestimonialsSection),
+)
+const CTASection = dynamic(() =>
+  import("@/components/cta-section").then((module) => module.CTASection),
+)
 
 export default function HomePage() {
   return (
@@ -27,6 +41,7 @@ export default function HomePage() {
 
       {/* Structured Data for SEO */}
       <script
+        id="ft-home-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
