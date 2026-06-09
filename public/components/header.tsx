@@ -14,10 +14,10 @@ export function Header() {
     <header className="sticky top-0 z-50 bg-card shadow-sm">
       <div className="bg-primary text-primary-foreground">
         <div className="mx-auto max-w-[1280px] px-3 sm:px-4 lg:px-4">
-          <div className="flex h-10 items-center justify-between text-sm">
-            <div className="flex items-center gap-2">
-              <MapPin className="h-4 w-4" />
-              <span>{settings.service_area}</span>
+          <div className="flex min-h-10 items-center justify-between py-2 text-xs sm:text-sm">
+            <div className="flex min-w-0 items-center gap-2">
+              <MapPin className="h-4 w-4 flex-none" />
+              <span className="truncate">{settings.service_area}</span>
             </div>
             <div className="hidden sm:flex items-center gap-6">
               <a href="/financing/" className="hover:underline">
@@ -35,15 +35,15 @@ export function Header() {
       </div>
 
       <nav className="mx-auto max-w-[1280px] px-3 sm:px-4 lg:px-4">
-        <div className="flex items-center justify-between py-0">
-          <a href="/" className="flex items-center text-2xl font-bold text-primary">
+        <div className="flex min-h-16 items-center justify-between gap-3 py-1">
+          <a href="/" className="flex min-w-0 items-center text-2xl font-bold text-primary">
             {logoSrc ? (
               <img
                 src={logoSrc}
                 alt={settings.logo_text}
                 width={250}
                 height={80}
-                className="block h-auto object-contain"
+                className="block h-auto max-h-16 max-w-[210px] object-contain sm:max-w-[250px]"
                 style={{ width: settings.logo_size }}
                 loading="eager"
                 fetchPriority="high"
@@ -66,7 +66,7 @@ export function Header() {
             ))}
           </div>
 
-          <div className="flex items-center justify-end gap-4">
+          <div className="flex flex-none items-center justify-end gap-3 sm:gap-4">
             <a
               href={phoneHref}
               className="hidden sm:flex items-center gap-2 text-base font-semibold text-foreground whitespace-nowrap"

@@ -9,7 +9,7 @@ export function CTASection() {
 
   return (
     <section
-      className="py-20 text-primary-foreground"
+      className="py-12 text-primary-foreground sm:py-16 lg:py-20"
       style={{
         background: `linear-gradient(${settings.cta_bg_location}, ${settings.cta_bg_color_1}, ${settings.cta_bg_color_2})`,
       }}
@@ -19,15 +19,15 @@ export function CTASection() {
         <h2 id="cta-heading" className="font-serif text-3xl font-bold sm:text-4xl lg:text-5xl">
           {settings.cta_title}
         </h2>
-        <p className="mt-4 text-xl opacity-90">
+        <p className="mt-4 text-lg opacity-90 sm:text-xl">
           {settings.cta_subtitle}
         </p>
-        <p className="mt-2 text-lg opacity-80 max-w-2xl mx-auto">
+        <p className="mx-auto mt-2 max-w-2xl text-base opacity-80 sm:text-lg">
           {settings.cta_text}
         </p>
         <Link
           href="#estimate"
-          className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-secondary px-6 py-3 text-base font-bold text-secondary-foreground shadow-md transition-colors hover:bg-secondary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+          className="mt-7 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-secondary px-6 py-3 text-base font-bold text-secondary-foreground shadow-md transition-colors hover:bg-secondary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:mt-8 sm:w-auto"
         >
           <span>{settings.cta_button}</span>
           <ArrowRight className="h-4 w-4" aria-hidden="true" />

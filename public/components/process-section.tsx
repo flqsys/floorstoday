@@ -11,30 +11,30 @@ export function ProcessSection() {
   return (
     <section
       id="how-it-works"
-      className="py-20"
+      className="py-12 sm:py-16 lg:py-20"
       style={{
         background: `linear-gradient(${settings.process_bg_location}, ${settings.process_bg_color_1}, ${settings.process_bg_color_2})`,
       }}
       aria-labelledby="process-heading"
     >
       <div className="mx-auto max-w-[1280px] px-3 sm:px-4 lg:px-4">
-        <div className="text-center mb-16">
+        <div className="mb-8 text-center sm:mb-12 lg:mb-16">
           <h2 id="process-heading" className="font-serif text-3xl font-bold text-foreground sm:text-4xl">
             {settings.process_title}
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg">
             {settings.process_text}
           </p>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-3 lg:gap-8">
           {settings.process_steps.map((step, index) => {
             const StepIcon = icons[index] || Calendar
 
             return (
             <article
               key={`${step.title}-${index}`}
-              className="group relative bg-card rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow border border-border"
+              className="group relative overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-shadow hover:shadow-lg"
             >
               <div className="aspect-[4/3] overflow-hidden">
                 <img
@@ -52,7 +52,7 @@ export function ProcessSection() {
                   </div>
                 </div>
               </div>
-              <div className="p-6">
+              <div className="p-5 sm:p-6">
                 <div className="flex items-center gap-3 mb-3">
                   <StepIcon className="h-5 w-5 text-secondary" />
                   <h3 className="font-semibold text-foreground text-lg">{step.title}</h3>
@@ -61,7 +61,7 @@ export function ProcessSection() {
                 {step.button && (
                   <Link
                     href="#estimate"
-                    className="mt-4 inline-flex min-h-10 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-bold text-primary-foreground transition-colors hover:bg-primary/90"
+                    className="mt-4 inline-flex min-h-10 w-full items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-bold text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto"
                   >
                     {step.button}
                   </Link>

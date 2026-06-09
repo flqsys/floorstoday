@@ -9,26 +9,26 @@ export function TestimonialsSection() {
 
   return (
     <section
-      className="py-20"
+      className="py-12 sm:py-16 lg:py-20"
       style={{
         background: `linear-gradient(${settings.testimonials_bg_location}, ${settings.testimonials_bg_color_1}, ${settings.testimonials_bg_color_2})`,
       }}
       aria-labelledby="testimonials-heading"
     >
       <div className="mx-auto max-w-[1280px] px-3 sm:px-4 lg:px-4">
-        <div className="text-center mb-12">
+        <div className="mb-8 text-center sm:mb-12">
           <h2 id="testimonials-heading" className="font-serif text-3xl font-bold text-foreground sm:text-4xl">
             {settings.testimonials_title}
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg">
             {settings.testimonials_text}
           </p>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-3 lg:gap-8">
           {settings.testimonials.map((testimonial, index) => (
             <Card key={`${testimonial.name}-${index}`} className="relative">
-              <CardContent className="pt-8">
+              <CardContent className="p-5 pt-8 sm:p-6 sm:pt-8">
                 <Quote className="absolute top-4 right-4 h-8 w-8 text-secondary/20" />
 
                 <div className="flex gap-1 mb-4">

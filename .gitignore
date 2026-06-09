@@ -25,3 +25,8 @@
 /public/.snowflake/
 /public/.v0-trash/
 /public/.env*.local
+
+# Deployee runtime settings and generated database backups
+/deployee/storage/*
+!/deployee/storage/.gitignore
+!/deployee/storage/.htaccess

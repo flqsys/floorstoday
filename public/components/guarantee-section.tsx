@@ -9,14 +9,14 @@ export function GuaranteeSection() {
 
   return (
     <section
-      className="py-20"
+      className="py-12 sm:py-16 lg:py-20"
       style={{
         background: `linear-gradient(${settings.guarantee_bg_location}, ${settings.guarantee_bg_color_1}, ${settings.guarantee_bg_color_2})`,
       }}
       aria-labelledby="guarantee-heading"
     >
       <div className="mx-auto max-w-[1280px] px-3 sm:px-4 lg:px-4">
-        <div className="grid gap-12 lg:grid-cols-2 items-center">
+        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
           <div className="relative">
             <img
               src={settings.guarantee_image}
@@ -25,7 +25,7 @@ export function GuaranteeSection() {
               height={400}
               loading="lazy"
               decoding="async"
-              className="rounded-2xl shadow-lg"
+              className="h-auto w-full rounded-lg object-cover shadow-lg"
             />
             <div className="absolute -bottom-6 -right-6 bg-secondary text-secondary-foreground p-4 rounded-xl shadow-lg hidden md:block">
               <Shield className="h-8 w-8" />
@@ -36,10 +36,10 @@ export function GuaranteeSection() {
             <h2 id="guarantee-heading" className="font-serif text-3xl font-bold text-foreground sm:text-4xl">
               {settings.guarantee_title}
             </h2>
-            <p className="mt-2 text-xl font-semibold text-secondary">
+            <p className="mt-2 text-lg font-semibold text-secondary sm:text-xl">
               {settings.guarantee_subtitle}
             </p>
-            <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:mt-6 sm:text-lg">
               {settings.guarantee_text}
             </p>
             <Link

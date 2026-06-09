@@ -122,7 +122,7 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative min-h-[90vh] flex items-center">
+    <section className="relative flex min-h-0 items-center lg:min-h-[90vh]">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         {showBackground ? (
@@ -143,23 +143,23 @@ export function HeroSection() {
         ) : null}
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1280px] px-3 py-16 sm:px-4 lg:px-4">
+      <div className="relative z-10 mx-auto w-full max-w-[1280px] px-3 py-10 sm:px-4 sm:py-14 lg:px-4 lg:py-16">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(540px,560px)] lg:gap-10 items-center">
           {/* Left Content */}
           <div className="text-background">
             {/* Trust Badge */}
-            <div className="flex items-center gap-2 mb-6">
+            <div className="mb-5 flex flex-wrap items-center gap-2 sm:mb-6">
               <div className="flex -space-x-1">
                 {[1, 2, 3, 4, 5].map((i) => (
                   <Star key={i} className="h-5 w-5 fill-secondary text-secondary" />
                 ))}
               </div>
-              <span className="text-sm text-background/80">Rated 4.9/5 by 2,000+ Ontario homeowners</span>
+              <span className="text-xs text-background/80 sm:text-sm">Rated 4.9/5 by 2,000+ Ontario homeowners</span>
             </div>
 
             {/* Promotion Badge */}
             <Badge
-              className="ft-hero-badge mb-6 border-0 px-4 py-2 font-bold"
+              className="ft-hero-badge mb-5 max-w-full whitespace-normal border-0 px-4 py-2 text-center font-bold sm:mb-6"
               style={{
                 backgroundColor: "var(--ft-hero-badge-bg)",
                 color: "var(--ft-hero-badge-text)",
@@ -171,17 +171,17 @@ export function HeroSection() {
               {settings.hero_badge}
             </Badge>
             
-            <h1 className="font-serif text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl text-balance">
+            <h1 className="font-serif text-3xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl">
               {settings.hero_title}{" "}
               <span className="text-secondary">{settings.hero_highlight}</span>
             </h1>
 
-            <p className="mt-6 text-xl leading-relaxed text-background/90 max-w-lg text-pretty">
+            <p className="mt-5 max-w-lg text-base leading-relaxed text-background/90 text-pretty sm:mt-6 sm:text-xl">
               {settings.hero_text}
             </p>
 
             {/* Value Props */}
-            <div className="mt-8 grid grid-cols-2 gap-4">
+            <div className="mt-7 grid grid-cols-1 gap-3 min-[420px]:grid-cols-2 sm:mt-8 sm:gap-4">
               {[
                 { icon: CheckCircle, text: "No Hidden Fees" },
                 { icon: Calendar, text: "Free In-Home Estimate" },
@@ -198,7 +198,7 @@ export function HeroSection() {
             </div>
 
             {/* Phone CTA */}
-            <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+            <div className="mt-8 flex flex-col items-start gap-5 sm:mt-10 sm:flex-row sm:items-center sm:gap-6">
               <a 
                 href={`tel:${settings.phone.replace(/[^\d+]/g, "")}`} 
                 className="group flex flex-none items-center gap-3"
@@ -206,15 +206,15 @@ export function HeroSection() {
                 <div className="flex h-14 w-14 flex-none items-center justify-center rounded-full bg-secondary transition-transform group-hover:scale-110">
                   <Phone className="h-6 w-6 text-secondary-foreground" />
                 </div>
-                <div className="min-w-max">
+                <div className="min-w-0">
                   <p className="text-sm text-background/70">Call Us Now</p>
-                  <p className="whitespace-nowrap text-2xl font-bold text-background">{settings.phone}</p>
+                  <p className="text-xl font-bold text-background sm:whitespace-nowrap sm:text-2xl">{settings.phone}</p>
                 </div>
               </a>
               <div className="hidden sm:block w-px h-12 bg-background/20" />
-              <div className="flex min-w-max items-center gap-2">
+              <div className="flex min-w-0 items-start gap-2">
                 <MapPin className="h-5 w-5 flex-none text-secondary" />
-                <span className="whitespace-nowrap text-background/80">{settings.service_area}</span>
+                <span className="text-background/80">{settings.service_area}</span>
               </div>
             </div>
           </div>
@@ -223,7 +223,7 @@ export function HeroSection() {
             id="estimate"
             className="scroll-mt-28 w-full max-w-[560px] justify-self-center rounded-[20px] border-0 bg-white shadow-2xl lg:justify-self-end"
           >
-            <CardContent className="p-6 sm:p-9">
+            <CardContent className="p-4 min-[380px]:p-5 sm:p-9">
               <div className="text-center">
                 <h2 className="font-serif text-2xl font-bold leading-tight text-slate-950 sm:text-3xl">
                   {settings.form_title}
@@ -253,7 +253,7 @@ export function HeroSection() {
                       </div>
                       {item < 3 && (
                         <div
-                          className={`mx-3 h-0.5 w-14 rounded-full ${
+                          className={`mx-2 h-0.5 w-8 rounded-full min-[380px]:w-10 sm:mx-3 sm:w-14 ${
                             isSubmitted || item < step ? "bg-emerald-600" : "bg-stone-100"
                           }`}
                         />
@@ -306,12 +306,12 @@ export function HeroSection() {
                         </button>
                       ))}
                     </div>
-                    <div className="flex items-center justify-between pt-1">
+                    <div className="flex flex-col items-stretch gap-3 pt-1 min-[420px]:flex-row min-[420px]:items-center min-[420px]:justify-between">
                       <p className="text-sm text-slate-500">Takes under 60 seconds</p>
                       <Button
                         type="button"
                         onClick={handleNext}
-                        className="rounded-full bg-primary px-5 font-bold text-primary-foreground hover:bg-primary/90"
+                        className="w-full rounded-full bg-primary px-5 font-bold text-primary-foreground hover:bg-primary/90 min-[420px]:w-auto"
                       >
                         Continue
                         <ArrowRight className="ml-2 h-4 w-4" />
@@ -434,7 +434,7 @@ export function HeroSection() {
                 )}
 
                 {step > 1 && (
-                  <div className="mt-7 flex items-center justify-between gap-4">
+                  <div className="mt-7 flex items-center justify-between gap-3">
                     <button
                       type="button"
                       onClick={handlePrev}
@@ -447,7 +447,7 @@ export function HeroSection() {
                       type={step === 3 ? "submit" : "button"}
                       onClick={step < 3 ? handleNext : undefined}
                       disabled={isSubmitting}
-                      className="rounded-full bg-primary px-5 font-bold text-primary-foreground hover:bg-primary/90"
+                      className="min-w-0 rounded-full bg-primary px-4 font-bold text-primary-foreground hover:bg-primary/90 sm:px-5"
                     >
                       {step === 3
                         ? isSubmitting

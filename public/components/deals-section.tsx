@@ -69,14 +69,14 @@ export function DealsSection() {
 
   return (
     <section
-      className="py-20"
+      className="py-12 sm:py-16 lg:py-20"
       style={{
         background: `linear-gradient(${settings.deals_bg_location}, ${settings.deals_bg_color_1}, ${settings.deals_bg_color_2})`,
       }}
       aria-labelledby="deals-heading"
     >
       <div className="mx-auto max-w-[1280px] px-3 sm:px-4 lg:px-4">
-        <div className="text-center max-w-3xl mx-auto mb-12">
+        <div className="mx-auto mb-8 max-w-3xl text-center sm:mb-12">
           <Badge className="mb-4 bg-secondary/10 text-secondary border-secondary/20 hover:bg-secondary/10">
             {settings.deals_badge}
           </Badge>
@@ -85,15 +85,15 @@ export function DealsSection() {
             {settings.deals_title}
           </h2>
 
-          <p className="mt-4 text-lg text-muted-foreground text-pretty">
+          <p className="mt-4 text-base text-muted-foreground text-pretty sm:text-lg">
             {settings.deals_text}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
+        <div className="mb-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mb-16 lg:grid-cols-4">
           {settings.offers.map((offer, index) => (
             <Card key={`${offer.title}-${index}`} className="border-2 border-primary/10 hover:border-primary/30 transition-colors bg-card">
-              <CardContent className="p-6 text-center">
+              <CardContent className="p-5 text-center sm:p-6">
                 <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                   <Gift className="w-6 h-6 text-primary" />
                 </div>
@@ -104,17 +104,17 @@ export function DealsSection() {
           ))}
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
+        <div className="grid items-start gap-8 lg:grid-cols-[minmax(280px,0.72fr)_minmax(580px,1.28fr)] lg:gap-10">
           <div className="space-y-8">
             <p className="text-lg leading-relaxed text-muted-foreground">
               {settings.deals_body}
             </p>
           </div>
 
-          <div className="lg:sticky lg:top-24">
+          <div>
             <Card className="overflow-hidden rounded-lg border border-primary/20 bg-primary text-primary-foreground shadow-xl">
               <CardContent className="p-0">
-                <div className="flex items-center gap-3 border-b border-white/15 px-6 py-3">
+                <div className="flex items-center gap-3 border-b border-white/15 px-4 py-3 sm:px-6">
                   <span className="flex h-10 w-10 items-center justify-center rounded-md bg-white/10">
                     <Gift className="h-5 w-5 text-secondary" />
                   </span>
@@ -128,10 +128,10 @@ export function DealsSection() {
                   </div>
                 </div>
 
-                <div className="grid gap-6 px-6 py-5 sm:px-8 sm:py-5 md:grid-cols-[minmax(0,1fr)_minmax(230px,0.9fr)] md:items-stretch">
+                <div className="grid gap-6 px-4 py-5 sm:px-6 md:grid-cols-[minmax(0,1.05fr)_minmax(250px,0.95fr)] md:items-stretch lg:px-8">
                   <div>
                     <div className="mb-6">
-                      <div className="flex flex-nowrap items-center gap-3 whitespace-nowrap">
+                      <div className="flex flex-wrap items-center gap-2 sm:flex-nowrap sm:gap-3">
                         <h3 className="text-4xl font-extrabold leading-none text-white sm:text-5xl">
                           {settings.deals_card_title}
                         </h3>
@@ -141,10 +141,10 @@ export function DealsSection() {
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+                    <div className="flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-3">
                       <Link
                         href="#estimate"
-                        className="inline-flex min-h-11 flex-none items-center justify-center gap-2 whitespace-nowrap rounded-md bg-secondary px-5 py-2.5 font-bold leading-none text-secondary-foreground shadow-md transition-colors hover:bg-secondary/90"
+                        className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-md bg-secondary px-5 py-2.5 font-bold leading-none text-secondary-foreground shadow-md transition-colors hover:bg-secondary/90 sm:w-auto sm:flex-none sm:whitespace-nowrap"
                       >
                         <span className="whitespace-nowrap">{settings.deals_button}</span>
                         <ArrowRight className="h-4 w-4 flex-none" aria-hidden="true" />
@@ -184,7 +184,7 @@ export function DealsSection() {
 
       {isOfferOpen ? (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/70 p-3 backdrop-blur-sm sm:p-5"
+          className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-slate-950/70 p-3 backdrop-blur-sm sm:items-center sm:p-5"
           role="presentation"
           onMouseDown={(event) => {
             if (event.target === event.currentTarget) setIsOfferOpen(false)
@@ -195,7 +195,7 @@ export function DealsSection() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="offer-details-title"
-            className="relative w-full max-w-6xl overflow-hidden rounded-lg bg-white shadow-2xl"
+            className="relative my-3 w-full max-w-6xl overflow-hidden rounded-lg bg-white shadow-2xl sm:my-0"
           >
             <button
               ref={closeButtonRef}
@@ -237,7 +237,7 @@ export function DealsSection() {
                 <Link
                   href="#estimate"
                   onClick={() => setIsOfferOpen(false)}
-                  className="mt-7 inline-flex min-h-11 w-fit items-center justify-center gap-2 rounded-md bg-secondary px-5 py-2.5 font-bold text-secondary-foreground transition-colors hover:bg-secondary/90"
+                  className="mt-7 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-md bg-secondary px-5 py-2.5 font-bold text-secondary-foreground transition-colors hover:bg-secondary/90 sm:w-fit"
                 >
                   {settings.deals_popup_button}
                   <ArrowRight className="h-4 w-4" />

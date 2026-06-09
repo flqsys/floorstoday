@@ -47,7 +47,7 @@ export function Footer() {
               <h3 className="text-lg font-semibold">{settings.newsletter_title}</h3>
               <p className="text-sm text-background/70">{settings.newsletter_text}</p>
             </div>
-            <form onSubmit={handleSubmit} className="flex gap-2 w-full md:w-auto">
+            <form onSubmit={handleSubmit} className="flex w-full flex-col gap-2 sm:flex-row md:w-auto">
               <Input
                 type="email"
                 placeholder="Your Email"
@@ -56,7 +56,7 @@ export function Footer() {
                 className="bg-background/10 border-background/20 text-background placeholder:text-background/50 w-full md:w-64"
                 required
               />
-              <Button type="submit" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground">
+              <Button type="submit" className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90 sm:w-auto">
                 {settings.newsletter_button}
               </Button>
             </form>
@@ -65,8 +65,8 @@ export function Footer() {
       </div>
 
       <div className="mx-auto max-w-[1280px] px-3 sm:px-4 lg:px-4 py-12">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-6 lg:gap-x-6">
-          <div className="lg:col-span-2">
+        <div className="grid grid-cols-2 gap-x-5 gap-y-8 md:grid-cols-2 lg:grid-cols-6 lg:gap-x-6">
+          <div className="col-span-2 lg:col-span-2">
             <a href="/" className="inline-flex items-center text-2xl font-bold">
               {logoSrc ? (
                 <img
@@ -166,10 +166,10 @@ export function Footer() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-background/10">
-          <div className="flex flex-wrap items-center gap-6 text-sm text-background/70">
-            <div className="flex items-center gap-2">
+          <div className="flex flex-col items-start gap-4 text-sm text-background/70 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
+            <div className="flex min-w-0 items-start gap-2">
               <MapPin className="h-4 w-4" />
-              <span>{settings.service_area}</span>
+              <span className="break-words">{settings.service_area}</span>
             </div>
             <a href={phoneHref} className="flex items-center gap-2 hover:text-background">
               <Phone className="h-4 w-4" />
@@ -185,7 +185,7 @@ export function Footer() {
         <div className="mt-8 pt-8 border-t border-background/10">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-sm text-background/70">
             <p>{copyright}</p>
-            <div className="flex flex-wrap items-center gap-6">
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
               {bottomLinks.map((link) => (
                 <a key={`${link.label}-${link.url}`} href={link.url} className="hover:text-background">
                   {link.label}
