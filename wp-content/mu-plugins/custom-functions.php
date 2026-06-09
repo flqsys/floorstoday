@@ -12,6 +12,14 @@ if (!defined('ABSPATH')) {
 
 // Custom site code by Faris.
 
+// Hide Astra's fallback header on public WordPress pages. Added by Faris.
+// Elementor Theme Builder headers can still be restored later by removing this snippet.
+add_action('wp', function () {
+    if (!is_admin()) {
+        remove_all_actions('astra_header');
+    }
+}, 100);
+
 // Load the shared custom stylesheet on public WordPress pages.
 add_action('wp_enqueue_scripts', function () {
     $custom_css = __DIR__ . '/custom.css';

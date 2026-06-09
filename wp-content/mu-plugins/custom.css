@@ -154,3 +154,11 @@
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
+/* Hide removed site headers on regular WordPress/Elementor pages. Added by Faris. */
+#masthead,
+.site-header,
+.elementor-location-header,
+header[data-elementor-type="header"],
+.hfe-header {
+    display: none !important;
+}

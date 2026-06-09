@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import Link from "next/link"
 import { Menu, X, MapPin, Phone } from "lucide-react"
 import { useHomepageSettingsStatus } from "@/components/homepage-settings-provider"
 
@@ -21,15 +20,15 @@ export function Header() {
               <span>{settings.service_area}</span>
             </div>
             <div className="hidden sm:flex items-center gap-6">
-              <Link href="#financing" className="hover:underline">
+              <a href="/financing/" className="hover:underline">
                 Financing
-              </Link>
-              <Link href="#contact" className="hover:underline">
+              </a>
+              <a href="/contact/" className="hover:underline">
                 Contact
-              </Link>
-              <Link href="#faq" className="hover:underline">
+              </a>
+              <a href="/faqs/" className="hover:underline">
                 FAQs
-              </Link>
+              </a>
             </div>
           </div>
         </div>
@@ -57,13 +56,13 @@ export function Header() {
 
           <div className="hidden lg:flex lg:items-center lg:gap-6">
             {settings.nav_items.map((item) => (
-              <Link
+              <a
                 key={item.name}
                 href={item.href}
                 className="text-base font-medium text-foreground hover:text-primary transition-colors"
               >
                 {item.name}
-              </Link>
+              </a>
             ))}
           </div>
 
@@ -95,14 +94,14 @@ export function Header() {
           <div className="lg:hidden border-t border-border py-4">
             <div className="flex flex-col gap-4">
               {settings.nav_items.map((item) => (
-                <Link
+                <a
                   key={item.name}
                   href={item.href}
                   className="text-base font-medium text-foreground hover:text-primary"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.name}
-                </Link>
+                </a>
               ))}
               <div className="pt-4 border-t border-border flex flex-col gap-3">
                 <a href={phoneHref} className="flex items-center gap-2 text-base font-semibold">
