@@ -8,7 +8,7 @@ export function CategoriesSection() {
 
   return (
     <section
-      className="py-12 sm:py-16 lg:py-20"
+      className="py-14 sm:py-16 lg:py-20"
       style={{
         background: `linear-gradient(${settings.category_bg_location}, ${settings.category_bg_color_1}, ${settings.category_bg_color_2})`,
       }}
@@ -24,7 +24,7 @@ export function CategoriesSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 min-[520px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-5">
           {settings.categories.map((category) => {
             const legacyAnchor = category.slug.replace("-hardwood", "")
 
@@ -33,7 +33,7 @@ export function CategoriesSection() {
                 key={category.slug}
                 href="#estimate"
                 id={category.slug}
-                className="group relative aspect-[4/3] scroll-mt-28 overflow-hidden rounded-lg min-[520px]:aspect-[4/5]"
+                className="group relative aspect-[4/5] scroll-mt-28 overflow-hidden rounded-xl shadow-sm"
               >
               {legacyAnchor !== category.slug ? (
                 <span id={legacyAnchor} className="absolute inset-x-0 top-0 scroll-mt-28" aria-hidden="true" />
@@ -48,9 +48,9 @@ export function CategoriesSection() {
                 className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                <h3 className="text-base font-semibold sm:text-lg">{category.name}</h3>
-                <p className="text-sm text-white/80 mt-1 hidden sm:block">{category.description}</p>
+              <div className="absolute bottom-0 left-0 right-0 p-3 text-white sm:p-4">
+                <h3 className="text-sm font-semibold leading-tight sm:text-lg">{category.name}</h3>
+                <p className="mt-1 hidden text-sm text-white/80 sm:block">{category.description}</p>
               </div>
               </Link>
             )

@@ -9,7 +9,7 @@ export function TestimonialsSection() {
 
   return (
     <section
-      className="py-12 sm:py-16 lg:py-20"
+      className="py-14 sm:py-16 lg:py-20"
       style={{
         background: `linear-gradient(${settings.testimonials_bg_location}, ${settings.testimonials_bg_color_1}, ${settings.testimonials_bg_color_2})`,
       }}
@@ -27,7 +27,7 @@ export function TestimonialsSection() {
 
         <div className="grid gap-5 md:grid-cols-3 lg:gap-8">
           {settings.testimonials.map((testimonial, index) => (
-            <Card key={`${testimonial.name}-${index}`} className="relative">
+            <Card key={`${testimonial.name}-${index}`} className="relative rounded-xl shadow-sm">
               <CardContent className="p-5 pt-8 sm:p-6 sm:pt-8">
                 <Quote className="absolute top-4 right-4 h-8 w-8 text-secondary/20" />
 

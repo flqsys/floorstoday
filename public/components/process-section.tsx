@@ -11,7 +11,7 @@ export function ProcessSection() {
   return (
     <section
       id="how-it-works"
-      className="py-12 sm:py-16 lg:py-20"
+      className="py-14 sm:py-16 lg:py-20"
       style={{
         background: `linear-gradient(${settings.process_bg_location}, ${settings.process_bg_color_1}, ${settings.process_bg_color_2})`,
       }}
@@ -27,14 +27,14 @@ export function ProcessSection() {
           </p>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-3 lg:gap-8">
+        <div className="grid gap-6 md:grid-cols-3 lg:gap-8">
           {settings.process_steps.map((step, index) => {
             const StepIcon = icons[index] || Calendar
 
             return (
             <article
               key={`${step.title}-${index}`}
-              className="group relative overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-shadow hover:shadow-lg"
+              className="group relative overflow-hidden rounded-xl border border-border bg-card shadow-md shadow-black/5 transition-shadow hover:shadow-lg"
             >
               <div className="aspect-[4/3] overflow-hidden">
                 <img

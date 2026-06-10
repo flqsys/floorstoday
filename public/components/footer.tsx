@@ -96,8 +96,8 @@ export function Footer() {
       </div>
 
       <div className="mx-auto max-w-[1280px] px-4 py-10 sm:py-12">
-        <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-[minmax(320px,1.7fr)_repeat(4,minmax(max-content,1fr))] lg:gap-x-8">
-          <div className="sm:col-span-2 lg:col-span-1">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-9 lg:grid-cols-[minmax(320px,1.7fr)_repeat(4,minmax(max-content,1fr))] lg:gap-x-8">
+          <div className="col-span-2 lg:col-span-1">
             <a href="/" className="inline-flex items-center text-2xl font-bold">
               {logoSrc ? (
                 <img

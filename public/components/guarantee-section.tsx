@@ -9,7 +9,7 @@ export function GuaranteeSection() {
 
   return (
     <section
-      className="py-12 sm:py-16 lg:py-20"
+      className="py-14 sm:py-16 lg:py-20"
       style={{
         background: `linear-gradient(${settings.guarantee_bg_location}, ${settings.guarantee_bg_color_1}, ${settings.guarantee_bg_color_2})`,
       }}
@@ -25,7 +25,7 @@ export function GuaranteeSection() {
               height={400}
               loading="lazy"
               decoding="async"
-              className="h-auto w-full rounded-lg object-cover shadow-lg"
+              className="aspect-[16/10] w-full rounded-xl object-cover shadow-lg"
             />
             <div className="absolute -bottom-6 -right-6 bg-secondary text-secondary-foreground p-4 rounded-xl shadow-lg hidden md:block">
               <Shield className="h-8 w-8" />

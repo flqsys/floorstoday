@@ -122,7 +122,7 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative flex min-h-0 items-center lg:min-h-[90vh]">
+    <section className="relative flex min-h-0 items-center overflow-hidden lg:min-h-[90vh]">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         {showBackground ? (
@@ -130,7 +130,7 @@ export function HeroSection() {
             src={settings.hero_image}
             alt="Beautiful modern living room with hardwood flooring"
             fill
-            className="object-cover"
+            className="object-cover object-[58%_center] sm:object-center"
             priority
             sizes="100vw"
           />
@@ -143,23 +143,25 @@ export function HeroSection() {
         ) : null}
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1280px] px-4 py-9 sm:py-14 lg:py-16">
-        <div className="grid items-center gap-7 sm:gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(540px,560px)] lg:gap-10">
+      <div className="relative z-10 mx-auto w-full max-w-[1280px] px-4 py-10 sm:py-14 lg:py-16">
+        <div className="grid items-center gap-9 sm:gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(540px,560px)] lg:gap-10">
           {/* Left Content */}
           <div className="text-background">
             {/* Trust Badge */}
-            <div className="mb-4 flex flex-wrap items-center gap-2 sm:mb-6">
+            <div className="mb-5 flex flex-wrap items-center gap-2 sm:mb-6">
               <div className="flex -space-x-1">
                 {[1, 2, 3, 4, 5].map((i) => (
-                  <Star key={i} className="h-5 w-5 fill-secondary text-secondary" />
+                  <Star key={i} className="h-4 w-4 fill-secondary text-secondary sm:h-5 sm:w-5" />
                 ))}
               </div>
-              <span className="text-xs text-background/80 sm:text-sm">Rated 4.9/5 by 2,000+ Ontario homeowners</span>
+              <span className="text-[11px] font-medium text-background/85 min-[380px]:text-xs sm:text-sm">
+                Rated 4.9/5 by 2,000+ Ontario homeowners
+              </span>
             </div>
 
             {/* Promotion Badge */}
             <Badge
-              className="ft-hero-badge mb-5 max-w-full whitespace-normal border-0 px-4 py-2 text-center font-bold sm:mb-6"
+              className="ft-hero-badge mb-5 max-w-full whitespace-normal border-0 px-4 py-2 text-left font-extrabold tracking-wide sm:mb-6"
               style={{
                 backgroundColor: "var(--ft-hero-badge-bg)",
                 color: "var(--ft-hero-badge-text)",
@@ -171,34 +173,34 @@ export function HeroSection() {
               {settings.hero_badge}
             </Badge>
             
-            <h1 className="font-serif text-[2rem] font-bold leading-[1.08] tracking-tight text-balance sm:text-5xl lg:text-6xl">
+            <h1 className="max-w-xl font-serif text-[2.25rem] font-bold leading-[1.05] tracking-tight text-balance min-[390px]:text-[2.5rem] sm:text-5xl lg:text-6xl">
               {settings.hero_title}{" "}
               <span className="text-secondary">{settings.hero_highlight}</span>
             </h1>
 
-            <p className="mt-5 max-w-lg text-base leading-relaxed text-background/90 text-pretty sm:mt-6 sm:text-xl">
+            <p className="mt-5 max-w-lg text-[15px] leading-7 text-background/90 text-pretty sm:mt-6 sm:text-xl">
               {settings.hero_text}
             </p>
 
             {/* Value Props */}
-            <div className="mt-7 grid grid-cols-1 gap-3 sm:mt-8 sm:grid-cols-2 sm:gap-4">
+            <div className="mt-7 grid grid-cols-2 gap-x-3 gap-y-4 sm:mt-8 sm:gap-4">
               {[
                 { icon: CheckCircle, text: "No Hidden Fees" },
                 { icon: Calendar, text: "Free In-Home Estimate" },
                 { icon: Shield, text: "Price Match Guarantee" },
                 { icon: Star, text: "Professional Installation" },
               ].map((item, i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center">
-                    <item.icon className="h-5 w-5 text-secondary" />
+                <div key={i} className="flex min-w-0 items-center gap-2.5 sm:gap-3">
+                  <div className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-secondary/20 sm:h-10 sm:w-10">
+                    <item.icon className="h-4 w-4 text-secondary sm:h-5 sm:w-5" />
                   </div>
-                  <span className="text-sm font-medium text-background">{item.text}</span>
+                  <span className="text-xs font-semibold leading-snug text-background min-[390px]:text-sm">{item.text}</span>
                 </div>
               ))}
             </div>
 
             {/* Phone CTA */}
-            <div className="mt-8 flex flex-col items-start gap-4 sm:mt-10 sm:flex-row sm:items-center sm:gap-6">
+            <div className="mt-8 grid gap-4 min-[440px]:grid-cols-[auto_1fr] min-[440px]:items-center sm:mt-10 sm:flex sm:gap-6">
               <a 
                 href={`tel:${settings.phone.replace(/[^\d+]/g, "")}`} 
                 className="group flex flex-none items-center gap-3"
@@ -212,7 +214,7 @@ export function HeroSection() {
                 </div>
               </a>
               <div className="hidden sm:block w-px h-12 bg-background/20" />
-              <div className="flex min-w-0 items-start gap-2">
+              <div className="flex min-w-0 items-start gap-2 border-t border-white/15 pt-4 min-[440px]:border-l min-[440px]:border-t-0 min-[440px]:pl-5 min-[440px]:pt-0 sm:border-0 sm:p-0">
                 <MapPin className="h-5 w-5 flex-none text-secondary" />
                 <span className="text-background/80">{settings.service_area}</span>
               </div>
@@ -221,9 +223,9 @@ export function HeroSection() {
 
           <Card
             id="estimate"
-            className="scroll-mt-28 w-full max-w-[560px] justify-self-center rounded-2xl border-0 bg-white shadow-2xl sm:rounded-[20px] lg:justify-self-end"
+            className="scroll-mt-28 w-full max-w-[560px] justify-self-center rounded-[1.25rem] border border-white/50 bg-white shadow-2xl shadow-black/20 lg:justify-self-end"
           >
-            <CardContent className="p-5 sm:p-9">
+            <CardContent className="p-5 min-[390px]:p-6 sm:p-9">
               <div className="text-center">
                 <h2 className="font-serif text-2xl font-bold leading-tight text-slate-950 sm:text-3xl">
                   {settings.form_title}

@@ -69,7 +69,7 @@ export function DealsSection() {
 
   return (
     <section
-      className="py-12 sm:py-16 lg:py-20"
+      className="py-14 sm:py-16 lg:py-20"
       style={{
         background: `linear-gradient(${settings.deals_bg_location}, ${settings.deals_bg_color_1}, ${settings.deals_bg_color_2})`,
       }}
@@ -90,15 +90,15 @@ export function DealsSection() {
           </p>
         </div>
 
-        <div className="mb-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mb-16 lg:grid-cols-4">
+        <div className="mb-10 grid grid-cols-2 gap-3 sm:gap-4 lg:mb-16 lg:grid-cols-4">
           {settings.offers.map((offer, index) => (
             <Card key={`${offer.title}-${index}`} className="border-2 border-primary/10 hover:border-primary/30 transition-colors bg-card">
-              <CardContent className="p-5 text-center sm:p-6">
-                <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                  <Gift className="w-6 h-6 text-primary" />
+              <CardContent className="p-4 text-center sm:p-6">
+                <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 sm:mb-4 sm:h-12 sm:w-12">
+                  <Gift className="h-5 w-5 text-primary sm:h-6 sm:w-6" />
                 </div>
-                <h3 className="font-bold text-lg text-foreground mb-2">{offer.title}</h3>
-                <p className="text-sm text-muted-foreground">{offer.description}</p>
+                <h3 className="mb-2 text-sm font-bold leading-snug text-foreground sm:text-lg">{offer.title}</h3>
+                <p className="text-xs leading-relaxed text-muted-foreground sm:text-sm">{offer.description}</p>
               </CardContent>
             </Card>
           ))}
