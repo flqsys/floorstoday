@@ -14,7 +14,7 @@ export function CategoriesSection() {
       }}
       aria-labelledby="categories-heading"
     >
-      <div className="mx-auto max-w-[1280px] px-3 sm:px-4 lg:px-4">
+      <div className="mx-auto max-w-[1280px] px-4">
         <div className="mb-8 text-center sm:mb-12">
           <h2 id="categories-heading" className="font-serif text-3xl font-bold text-foreground sm:text-4xl">
             {settings.category_title}
@@ -24,7 +24,7 @@ export function CategoriesSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-1 gap-4 min-[520px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
           {settings.categories.map((category) => {
             const legacyAnchor = category.slug.replace("-hardwood", "")
 
@@ -33,7 +33,7 @@ export function CategoriesSection() {
                 key={category.slug}
                 href="#estimate"
                 id={category.slug}
-                className="group relative aspect-[4/3] scroll-mt-28 overflow-hidden rounded-lg min-[420px]:aspect-[4/5]"
+                className="group relative aspect-[4/3] scroll-mt-28 overflow-hidden rounded-lg min-[520px]:aspect-[4/5]"
               >
               {legacyAnchor !== category.slug ? (
                 <span id={legacyAnchor} className="absolute inset-x-0 top-0 scroll-mt-28" aria-hidden="true" />

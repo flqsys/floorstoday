@@ -32,6 +32,8 @@ function ft_next_homepage_defaults() {
         'facebook_url' => '',
         'instagram_url' => '',
         'linkedin_url' => '',
+        'youtube_url' => '',
+        'tiktok_url' => '',
         'seo_title' => 'Floors Today | Flooring Installation in Ontario',
         'seo_description' => 'Shop premium hardwood, laminate, vinyl and carpet flooring with free in-home estimates and professional installation across Ontario.',
         'seo_canonical_url' => home_url('/'),
@@ -73,6 +75,7 @@ function ft_next_homepage_defaults() {
         'process_bg_color_2' => 'oklch(0.985 0.002 90)',
         'process_bg_location' => 'to bottom',
         'comparison_title' => 'All-Inclusive Price Estimate, No Hidden Fees',
+        'comparison_table_title' => 'What\'s Included',
         'comparison_text' => 'Floors Today makes it easy with one, easy to understand price, complete with all the commonly up-charged items required for your floor to be installed. You will know the full project price during your free in-home appointment, upfront, before any installation work begins.',
         'comparison_button' => 'Book An Appointment',
         'comparison_bg_color_1' => 'var(--primary)',
@@ -1295,11 +1298,11 @@ add_action('admin_post_ft_next_homepage_save', function () {
     $data = [];
     $text_fields = [
         'phone', 'email', 'service_area', 'logo_text', 'logo_image', 'favicon_image', 'logo_size', 'cta_label',
-        'facebook_url', 'instagram_url', 'linkedin_url',
+        'facebook_url', 'instagram_url', 'linkedin_url', 'youtube_url', 'tiktok_url',
         'seo_title', 'seo_canonical_url', 'seo_robots', 'seo_og_title', 'seo_og_image', 'hero_badge',
         'hero_badge_font_size', 'hero_badge_padding_x', 'hero_badge_padding_y',
         'hero_title', 'hero_highlight', 'hero_badge_animation_location', 'hero_badge_animation_speed', 'form_title', 'form_subtitle',
-        'process_title', 'comparison_title', 'comparison_button',
+        'process_title', 'comparison_title', 'comparison_table_title', 'comparison_button',
         'cta_title', 'cta_subtitle', 'cta_button', 'hero_image', 'hero_overlay_opacity',
         'button_radius', 'button_font_weight', 'button_text_transform',
         'button_padding_x', 'button_padding_y', 'button_hover_mix',
@@ -1840,10 +1843,14 @@ function ft_next_homepage_render_admin() {
                     <?php ft_next_homepage_card_open('Section Two'); ?>
                         <?php ft_next_homepage_gradient_controls($settings, 'comparison'); ?>
                         <div class="ft-next-field-stack" style="margin-bottom:16px;">
-                            <div class="ft-next-inline-grid ft-next-inline-grid--2" style="margin-bottom:0;">
+                            <div class="ft-next-inline-grid ft-next-inline-grid--3" style="margin-bottom:0;">
                                 <label>
                                     Section title
                                     <input name="comparison_title" type="text" value="<?php echo esc_attr($settings['comparison_title']); ?>">
+                                </label>
+                                <label>
+                                    Table title
+                                    <input name="comparison_table_title" type="text" value="<?php echo esc_attr($settings['comparison_table_title']); ?>">
                                 </label>
                                 <label>
                                     Button label
@@ -2196,6 +2203,14 @@ function ft_next_homepage_render_admin() {
                                 <label>
                                     LinkedIn URL
                                     <input name="linkedin_url" type="url" value="<?php echo esc_attr($settings['linkedin_url']); ?>">
+                                </label>
+                                <label>
+                                    YouTube URL
+                                    <input name="youtube_url" type="url" value="<?php echo esc_attr($settings['youtube_url']); ?>">
+                                </label>
+                                <label>
+                                    TikTok URL
+                                    <input name="tiktok_url" type="url" value="<?php echo esc_attr($settings['tiktok_url']); ?>">
                                 </label>
                             </div>
                         </div>

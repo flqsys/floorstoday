@@ -17,7 +17,7 @@ export function ProcessSection() {
       }}
       aria-labelledby="process-heading"
     >
-      <div className="mx-auto max-w-[1280px] px-3 sm:px-4 lg:px-4">
+      <div className="mx-auto max-w-[1280px] px-4">
         <div className="mb-8 text-center sm:mb-12 lg:mb-16">
           <h2 id="process-heading" className="font-serif text-3xl font-bold text-foreground sm:text-4xl">
             {settings.process_title}
@@ -55,7 +55,7 @@ export function ProcessSection() {
               <div className="p-5 sm:p-6">
                 <div className="flex items-center gap-3 mb-3">
                   <StepIcon className="h-5 w-5 text-secondary" />
-                  <h3 className="font-semibold text-foreground text-lg">{step.title}</h3>
+                  <h3 className="text-lg font-semibold leading-snug text-foreground">{step.title}</h3>
                 </div>
                 <p className="text-muted-foreground leading-relaxed">{step.description}</p>
                 {step.button && (

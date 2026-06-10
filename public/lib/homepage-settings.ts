@@ -47,6 +47,8 @@ export type HomepageSettings = {
   facebook_url: string
   instagram_url: string
   linkedin_url: string
+  youtube_url: string
+  tiktok_url: string
   button_radius: string
   button_font_weight: string
   button_text_transform: string
@@ -82,6 +84,7 @@ export type HomepageSettings = {
   process_bg_location: string
   process_steps: ProcessStep[]
   comparison_title: string
+  comparison_table_title: string
   comparison_text: string
   comparison_rows: string[]
   comparison_button: string
@@ -176,6 +179,8 @@ export const homepageDefaults: HomepageSettings = {
   facebook_url: "",
   instagram_url: "",
   linkedin_url: "",
+  youtube_url: "",
+  tiktok_url: "",
   button_radius: "8px",
   button_font_weight: "700",
   button_text_transform: "none",
@@ -236,6 +241,7 @@ export const homepageDefaults: HomepageSettings = {
     },
   ],
   comparison_title: "All-Inclusive Price Estimate, No Hidden Fees",
+  comparison_table_title: "What's Included",
   comparison_text:
     "Floors Today makes it easy with one, easy to understand price, complete with all the commonly up-charged items required for your floor to be installed. You will know the full project price during your free in-home appointment, upfront, before any installation work begins.",
   comparison_rows: [

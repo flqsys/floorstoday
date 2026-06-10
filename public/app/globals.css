@@ -172,6 +172,35 @@
     animation: ft-hero-highlight-flow var(--ft-hero-badge-animation-speed, 4s) linear infinite;
   }
 
+  @media (max-width: 639px) {
+    .ft-homepage-shell {
+      overflow-x: clip;
+    }
+
+    .ft-homepage-shell main > section:not(:first-child) {
+      content-visibility: visible;
+      contain-intrinsic-size: none;
+    }
+
+    .ft-homepage-shell .ft-hero-badge {
+      max-width: 100%;
+      font-size: clamp(1rem, 8vw, 2rem) !important;
+      line-height: 1.05;
+      padding: 0.75rem 1rem !important;
+      overflow-wrap: anywhere;
+    }
+
+    .ft-homepage-shell :is(a, button, [data-slot="button"])[class*="bg-primary"],
+    .ft-homepage-shell :is(a, button, [data-slot="button"])[class*="bg-secondary"] {
+      min-height: 44px;
+    }
+
+    .ft-homepage-shell img,
+    .ft-homepage-shell svg {
+      max-width: 100%;
+    }
+  }
+
   @keyframes ft-hero-highlight-flow {
     0% {
       background-position: 0% 50%;
@@ -221,6 +250,43 @@
     }
     50% {
       box-shadow: 0 0 14px rgba(220, 38, 38, 0.45);
+    }
+  }
+
+  .ft-homepage-shell :is(a, button, [data-slot="button"])[class*="bg-primary"],
+  .ft-homepage-shell :is(a, button, [data-slot="button"])[class*="bg-secondary"],
+  .ft-homepage-shell .ft-cta-shine {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .ft-homepage-shell :is(a, button, [data-slot="button"])[class*="bg-primary"]::after,
+  .ft-homepage-shell :is(a, button, [data-slot="button"])[class*="bg-secondary"]::after,
+  .ft-homepage-shell .ft-cta-shine::after {
+    content: "";
+    position: absolute;
+    inset: -60% -80%;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(
+      110deg,
+      transparent 38%,
+      rgba(255, 255, 255, 0.48) 50%,
+      transparent 62%
+    );
+    transform: translateX(-70%);
+    animation: ft-cta-button-shine 2.8s ease-in-out infinite;
+  }
+
+  @keyframes ft-cta-button-shine {
+    0%,
+    38% {
+      transform: translateX(-70%);
+    }
+    72%,
+    100% {
+      transform: translateX(70%);
     }
   }
 

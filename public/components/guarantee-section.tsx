@@ -15,7 +15,7 @@ export function GuaranteeSection() {
       }}
       aria-labelledby="guarantee-heading"
     >
-      <div className="mx-auto max-w-[1280px] px-3 sm:px-4 lg:px-4">
+      <div className="mx-auto max-w-[1280px] px-4">
         <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
           <div className="relative">
             <img

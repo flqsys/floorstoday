@@ -1,4 +1,3 @@
-import { Analytics } from '@vercel/analytics/next'
 import type { Metadata } from 'next'
 import { Montserrat } from 'next/font/google'
 import './globals.css'
@@ -45,7 +44,6 @@ export default function RootLayout({
     <html lang="en" className={montserrat.variable}>
       <body className="font-sans antialiased bg-background">
         {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
   )

@@ -143,12 +143,12 @@ export function HeroSection() {
         ) : null}
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1280px] px-3 py-10 sm:px-4 sm:py-14 lg:px-4 lg:py-16">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(540px,560px)] lg:gap-10 items-center">
+      <div className="relative z-10 mx-auto w-full max-w-[1280px] px-4 py-9 sm:py-14 lg:py-16">
+        <div className="grid items-center gap-7 sm:gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(540px,560px)] lg:gap-10">
           {/* Left Content */}
           <div className="text-background">
             {/* Trust Badge */}
-            <div className="mb-5 flex flex-wrap items-center gap-2 sm:mb-6">
+            <div className="mb-4 flex flex-wrap items-center gap-2 sm:mb-6">
               <div className="flex -space-x-1">
                 {[1, 2, 3, 4, 5].map((i) => (
                   <Star key={i} className="h-5 w-5 fill-secondary text-secondary" />
@@ -171,7 +171,7 @@ export function HeroSection() {
               {settings.hero_badge}
             </Badge>
             
-            <h1 className="font-serif text-3xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl">
+            <h1 className="font-serif text-[2rem] font-bold leading-[1.08] tracking-tight text-balance sm:text-5xl lg:text-6xl">
               {settings.hero_title}{" "}
               <span className="text-secondary">{settings.hero_highlight}</span>
             </h1>
@@ -181,7 +181,7 @@ export function HeroSection() {
             </p>
 
             {/* Value Props */}
-            <div className="mt-7 grid grid-cols-1 gap-3 min-[420px]:grid-cols-2 sm:mt-8 sm:gap-4">
+            <div className="mt-7 grid grid-cols-1 gap-3 sm:mt-8 sm:grid-cols-2 sm:gap-4">
               {[
                 { icon: CheckCircle, text: "No Hidden Fees" },
                 { icon: Calendar, text: "Free In-Home Estimate" },
@@ -198,7 +198,7 @@ export function HeroSection() {
             </div>
 
             {/* Phone CTA */}
-            <div className="mt-8 flex flex-col items-start gap-5 sm:mt-10 sm:flex-row sm:items-center sm:gap-6">
+            <div className="mt-8 flex flex-col items-start gap-4 sm:mt-10 sm:flex-row sm:items-center sm:gap-6">
               <a 
                 href={`tel:${settings.phone.replace(/[^\d+]/g, "")}`} 
                 className="group flex flex-none items-center gap-3"
@@ -221,9 +221,9 @@ export function HeroSection() {
 
           <Card
             id="estimate"
-            className="scroll-mt-28 w-full max-w-[560px] justify-self-center rounded-[20px] border-0 bg-white shadow-2xl lg:justify-self-end"
+            className="scroll-mt-28 w-full max-w-[560px] justify-self-center rounded-2xl border-0 bg-white shadow-2xl sm:rounded-[20px] lg:justify-self-end"
           >
-            <CardContent className="p-4 min-[380px]:p-5 sm:p-9">
+            <CardContent className="p-5 sm:p-9">
               <div className="text-center">
                 <h2 className="font-serif text-2xl font-bold leading-tight text-slate-950 sm:text-3xl">
                   {settings.form_title}
@@ -233,7 +233,7 @@ export function HeroSection() {
                 </p>
               </div>
 
-              <div className="my-7 flex items-center justify-center">
+                <div className="my-6 flex items-center justify-center sm:my-7">
                 {[1, 2, 3].map((item) => {
                   const isDone = isSubmitted || item < step
                   const isCurrent = !isSubmitted && item === step
@@ -290,7 +290,7 @@ export function HeroSection() {
                 {step === 1 && (
                   <div className="space-y-5">
                     <h3 className="text-base font-semibold text-slate-950">What floors interest you?</h3>
-                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    <div className="grid grid-cols-1 gap-3 min-[460px]:grid-cols-2">
                       {flooringOptions.map((option) => (
                         <button
                           key={option}

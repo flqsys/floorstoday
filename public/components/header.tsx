@@ -13,7 +13,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-card shadow-sm">
       <div className="bg-primary text-primary-foreground">
-        <div className="mx-auto max-w-[1280px] px-3 sm:px-4 lg:px-4">
+        <div className="mx-auto max-w-[1280px] px-4">
           <div className="flex min-h-10 items-center justify-between py-2 text-xs sm:text-sm">
             <div className="flex min-w-0 items-center gap-2">
               <MapPin className="h-4 w-4 flex-none" />
@@ -34,7 +34,7 @@ export function Header() {
         </div>
       </div>
 
-      <nav className="mx-auto max-w-[1280px] px-3 sm:px-4 lg:px-4">
+      <nav className="mx-auto max-w-[1280px] px-4">
         <div className="flex min-h-16 items-center justify-between gap-3 py-1">
           <a href="/" className="flex min-w-0 items-center text-2xl font-bold text-primary">
             {logoSrc ? (
@@ -43,7 +43,7 @@ export function Header() {
                 alt={settings.logo_text}
                 width={250}
                 height={80}
-                className="block h-auto max-h-16 max-w-[210px] object-contain sm:max-w-[250px]"
+                className="block h-auto max-h-14 max-w-[180px] object-contain sm:max-h-16 sm:max-w-[250px]"
                 style={{ width: settings.logo_size }}
                 loading="eager"
                 fetchPriority="high"
@@ -77,7 +77,7 @@ export function Header() {
 
             <button
               type="button"
-              className="lg:hidden rounded-md p-[3px] text-foreground"
+              className="flex h-11 w-11 items-center justify-center rounded-md p-0 text-foreground lg:hidden"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               <span className="sr-only">Open menu</span>

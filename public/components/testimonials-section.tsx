@@ -15,7 +15,7 @@ export function TestimonialsSection() {
       }}
       aria-labelledby="testimonials-heading"
     >
-      <div className="mx-auto max-w-[1280px] px-3 sm:px-4 lg:px-4">
+      <div className="mx-auto max-w-[1280px] px-4">
         <div className="mb-8 text-center sm:mb-12">
           <h2 id="testimonials-heading" className="font-serif text-3xl font-bold text-foreground sm:text-4xl">
             {settings.testimonials_title}

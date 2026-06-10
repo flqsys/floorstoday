@@ -15,11 +15,14 @@ export function CTASection() {
       }}
       aria-labelledby="cta-heading"
     >
-      <div className="mx-auto max-w-[1280px] px-3 sm:px-4 lg:px-4 text-center">
-        <h2 id="cta-heading" className="font-serif text-3xl font-bold sm:text-4xl lg:text-5xl">
+      <div className="mx-auto max-w-[1280px] px-4 text-center">
+        <h2
+          id="cta-heading"
+          className="mx-auto max-w-[900px] text-balance font-serif text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl"
+        >
           {settings.cta_title}
         </h2>
-        <p className="mt-4 text-lg opacity-90 sm:text-xl">
+        <p className="mt-4 text-xl font-bold text-secondary sm:text-2xl">
           {settings.cta_subtitle}
         </p>
         <p className="mx-auto mt-2 max-w-2xl text-base opacity-80 sm:text-lg">
@@ -27,7 +30,7 @@ export function CTASection() {
         </p>
         <Link
           href="#estimate"
-          className="mt-7 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-secondary px-6 py-3 text-base font-bold text-secondary-foreground shadow-md transition-colors hover:bg-secondary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:mt-8 sm:w-auto"
+          className="ft-cta-shine mt-7 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-secondary px-6 py-3 text-base font-bold text-secondary-foreground shadow-md transition-colors hover:bg-secondary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:mt-8 sm:w-auto"
         >
           <span>{settings.cta_button}</span>
           <ArrowRight className="h-4 w-4" aria-hidden="true" />

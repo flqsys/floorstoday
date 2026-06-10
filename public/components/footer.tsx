@@ -6,6 +6,38 @@ import { Input } from "@/components/ui/input"
 import { MapPin, Phone, Mail } from "lucide-react"
 import { useHomepageSettingsStatus } from "@/components/homepage-settings-provider"
 
+type SocialIconProps = {
+  className?: string
+}
+
+const socialIcons: Record<string, (props: SocialIconProps) => React.ReactNode> = {
+  Facebook: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <path fill="currentColor" d="M13.5 22v-9h3l.5-3.5h-3.5V7.3c0-1 .3-1.8 1.8-1.8H17V2.4c-.3 0-1.4-.1-2.7-.1-2.7 0-4.6 1.7-4.6 4.8v2.4H7V13h2.7v9h3.8Z" />
+    </svg>
+  ),
+  Instagram: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <path fill="currentColor" d="M7.2 2h9.6A5.2 5.2 0 0 1 22 7.2v9.6a5.2 5.2 0 0 1-5.2 5.2H7.2A5.2 5.2 0 0 1 2 16.8V7.2A5.2 5.2 0 0 1 7.2 2Zm-.2 2A3 3 0 0 0 4 7v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm10.3 1.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" />
+    </svg>
+  ),
+  LinkedIn: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <path fill="currentColor" d="M5.3 7.8A2.3 2.3 0 1 1 5.3 3a2.3 2.3 0 0 1 0 4.7ZM3.3 9.5h4V21h-4V9.5Zm6.5 0h3.8v1.6h.1c.5-1 1.8-2.1 3.8-2.1 4 0 4.8 2.7 4.8 6.1V21h-4v-5.2c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21h-4V9.5Z" />
+    </svg>
+  ),
+  YouTube: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <path fill="currentColor" d="M23 7.1a3 3 0 0 0-2.1-2.2C19 4.4 12 4.4 12 4.4s-7 0-8.9.5A3 3 0 0 0 1 7.1 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.9 3 3 0 0 0 2.1 2.2c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.2 31 31 0 0 0 .5-4.9 31 31 0 0 0-.5-4.9ZM9.7 15.3V8.7L15.5 12l-5.8 3.3Z" />
+    </svg>
+  ),
+  TikTok: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <path fill="currentColor" d="M16.7 2c.3 2.2 1.6 3.6 3.8 3.8v3.7a9.2 9.2 0 0 1-3.8-1.1v7.1a6.6 6.6 0 1 1-5.7-6.6v3.8a2.9 2.9 0 1 0 2 2.8V2h3.7Z" />
+    </svg>
+  ),
+}
+
 function parseMenu(value: string) {
   return value.split(/\r?\n/).map((line) => {
     const [label, ...urlParts] = line.split("|")
@@ -24,7 +56,6 @@ export function Footer() {
   const aboutLinks = parseMenu(settings.footer_about_links)
   const helpLinks = parseMenu(settings.footer_help_links)
   const policyLinks = parseMenu(settings.footer_policy_links)
-  const bottomLinks = parseMenu(settings.footer_bottom_links)
   const copyright = settings.footer_copyright.replaceAll("{year}", String(new Date().getFullYear()))
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -41,7 +72,7 @@ export function Footer() {
       role="contentinfo"
     >
       <div className="border-b border-background/10">
-        <div className="mx-auto max-w-[1280px] px-3 sm:px-4 lg:px-4 py-8">
+        <div className="mx-auto max-w-[1280px] px-4 py-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <h3 className="text-lg font-semibold">{settings.newsletter_title}</h3>
@@ -64,9 +95,9 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-[1280px] px-3 sm:px-4 lg:px-4 py-12">
-        <div className="grid grid-cols-2 gap-x-5 gap-y-8 md:grid-cols-2 lg:grid-cols-6 lg:gap-x-6">
-          <div className="col-span-2 lg:col-span-2">
+      <div className="mx-auto max-w-[1280px] px-4 py-10 sm:py-12">
+        <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-[minmax(320px,1.7fr)_repeat(4,minmax(max-content,1fr))] lg:gap-x-8">
+          <div className="sm:col-span-2 lg:col-span-1">
             <a href="/" className="inline-flex items-center text-2xl font-bold">
               {logoSrc ? (
                 <img
@@ -90,24 +121,31 @@ export function Footer() {
               ["Facebook", settings.facebook_url],
               ["Instagram", settings.instagram_url],
               ["LinkedIn", settings.linkedin_url],
+              ["YouTube", settings.youtube_url],
+              ["TikTok", settings.tiktok_url],
             ].some(([, url]) => Boolean(url)) ? (
-              <div className="mt-6 flex items-center gap-4">
+              <div className="mt-6 flex items-center gap-3">
                 {[
                   ["Facebook", settings.facebook_url],
                   ["Instagram", settings.instagram_url],
                   ["LinkedIn", settings.linkedin_url],
-                ].filter(([, url]) => Boolean(url)).map(([label, url]) => (
+                  ["YouTube", settings.youtube_url],
+                  ["TikTok", settings.tiktok_url],
+                ].filter(([, url]) => Boolean(url)).map(([label, url]) => {
+                  const Icon = socialIcons[label]
+                  return (
                   <a
                     key={label}
                     href={url}
-                    className="text-background/70 hover:text-background"
+                    className="flex h-8 w-8 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white transition-colors hover:border-secondary hover:bg-secondary hover:text-secondary-foreground"
                     aria-label={label}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {label}
+                    <Icon className="h-4 w-4" />
                   </a>
-                ))}
+                  )
+                })}
               </div>
             ) : null}
           </div>
@@ -151,7 +189,7 @@ export function Footer() {
             </ul>
           </div>
 
-          <div>
+          <div className="lg:justify-self-end">
             <h4 className="font-semibold mb-4">{settings.footer_policies_title}</h4>
             <ul className="space-y-3">
               {policyLinks.map((link) => (
@@ -165,33 +203,23 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-background/10">
-          <div className="flex flex-col items-start gap-4 text-sm text-background/70 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
-            <div className="flex min-w-0 items-start gap-2">
-              <MapPin className="h-4 w-4" />
-              <span className="break-words">{settings.service_area}</span>
+        <div className="mt-10 border-t border-background/10 pt-7 sm:mt-12 sm:pt-8">
+          <div className="flex flex-col gap-5 text-sm text-background/70 lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
+              <div className="flex min-w-0 items-start gap-2">
+                <MapPin className="h-4 w-4" />
+                <span className="break-words">{settings.service_area}</span>
+              </div>
+              <a href={phoneHref} className="flex items-center gap-2 hover:text-background">
+                <Phone className="h-4 w-4" />
+                <span>{settings.phone}</span>
+              </a>
+              <a href={`mailto:${settings.email}`} className="flex items-center gap-2 hover:text-background">
+                <Mail className="h-4 w-4" />
+                <span>{settings.email}</span>
+              </a>
             </div>
-            <a href={phoneHref} className="flex items-center gap-2 hover:text-background">
-              <Phone className="h-4 w-4" />
-              <span>{settings.phone}</span>
-            </a>
-            <a href={`mailto:${settings.email}`} className="flex items-center gap-2 hover:text-background">
-              <Mail className="h-4 w-4" />
-              <span>{settings.email}</span>
-            </a>
-          </div>
-        </div>
-
-        <div className="mt-8 pt-8 border-t border-background/10">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-sm text-background/70">
-            <p>{copyright}</p>
-            <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-              {bottomLinks.map((link) => (
-                <a key={`${link.label}-${link.url}`} href={link.url} className="hover:text-background">
-                  {link.label}
-                </a>
-              ))}
-            </div>
+            <p className="lg:text-right">{copyright}</p>
           </div>
         </div>
       </div>

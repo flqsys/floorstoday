@@ -75,7 +75,7 @@ export function DealsSection() {
       }}
       aria-labelledby="deals-heading"
     >
-      <div className="mx-auto max-w-[1280px] px-3 sm:px-4 lg:px-4">
+      <div className="mx-auto max-w-[1280px] px-4">
         <div className="mx-auto mb-8 max-w-3xl text-center sm:mb-12">
           <Badge className="mb-4 bg-secondary/10 text-secondary border-secondary/20 hover:bg-secondary/10">
             {settings.deals_badge}
@@ -104,9 +104,9 @@ export function DealsSection() {
           ))}
         </div>
 
-        <div className="grid items-start gap-8 lg:grid-cols-[minmax(280px,0.72fr)_minmax(580px,1.28fr)] lg:gap-10">
+        <div className="grid items-start gap-8 lg:grid-cols-[minmax(280px,0.72fr)_minmax(580px,1.28fr)] lg:items-center lg:gap-10">
           <div className="space-y-8">
-            <p className="text-lg leading-relaxed text-muted-foreground">
+            <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
               {settings.deals_body}
             </p>
           </div>
@@ -132,7 +132,7 @@ export function DealsSection() {
                   <div>
                     <div className="mb-6">
                       <div className="flex flex-wrap items-center gap-2 sm:flex-nowrap sm:gap-3">
-                        <h3 className="text-4xl font-extrabold leading-none text-white sm:text-5xl">
+                        <h3 className="text-3xl font-extrabold leading-none text-white min-[380px]:text-4xl sm:text-5xl">
                           {settings.deals_card_title}
                         </h3>
                         <span className="ft-sale-badge inline-flex flex-none rounded bg-red-600 px-2 py-0.5 text-[11px] font-extrabold uppercase text-white shadow-sm">
