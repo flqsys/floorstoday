@@ -293,13 +293,16 @@ add_action('template_redirect', function () {
         return;
     }
 
-    // The checked-in export uses /public for production. Rewrite it for
-    // subdirectory installs such as http://localhost/floorstoday/.
-    $export_asset_path = '/public/';
-    $runtime_asset_path = trailingslashit((string) wp_parse_url(ft_next_homepage_asset_url(), PHP_URL_PATH));
-    if ($runtime_asset_path !== $export_asset_path) {
-        $html = str_replace($export_asset_path, $runtime_asset_path, $html);
-    }
+    // Derive the asset prefix from the requested front-page URL. This avoids
+    // stale home_url() subdirectory values after a database is moved.
+    $request_path = (string) wp_parse_url(wp_unslash($_SERVER['REQUEST_URI'] ?? '/'), PHP_URL_PATH);
+    $request_base = trailingslashit($request_path ?: '/');
+    $runtime_asset_path = $request_base . 'public/';
+    $html = str_replace(
+        ['/floorstoday/public/', '/public/'],
+        $runtime_asset_path,
+        $html
+    );
 
     $settings = ft_next_homepage_settings();
     $seo_title = $settings['seo_title'];
@@ -364,6 +367,13 @@ add_action('template_redirect', function () {
         $schema_script,
         $html,
         1
+    );
+
+    // Settings can contain URLs saved before the site was moved.
+    $html = str_replace(
+        ['/floorstoday/public/', '/public/'],
+        $runtime_asset_path,
+        $html
     );
 
     status_header(200);
