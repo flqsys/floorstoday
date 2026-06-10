@@ -16,8 +16,9 @@ export function HeroSection() {
   const [submitError, setSubmitError] = useState("")
   const settings = useHomepageSettings()
   const inboxEndpoint =
-    process.env.NEXT_PUBLIC_WORDPRESS_INBOX_ENDPOINT ||
-    "/wp-json/floors-today/v1/inbox-leads"
+    typeof window === "undefined"
+      ? "/wp-json/floors-today/v1/inbox-leads"
+      : `${window.location.pathname.replace(/\/$/, "")}/wp-json/floors-today/v1/inbox-leads`
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",

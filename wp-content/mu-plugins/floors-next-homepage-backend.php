@@ -293,6 +293,14 @@ add_action('template_redirect', function () {
         return;
     }
 
+    // The checked-in export uses /public for production. Rewrite it for
+    // subdirectory installs such as http://localhost/floorstoday/.
+    $export_asset_path = '/public/';
+    $runtime_asset_path = trailingslashit((string) wp_parse_url(ft_next_homepage_asset_url(), PHP_URL_PATH));
+    if ($runtime_asset_path !== $export_asset_path) {
+        $html = str_replace($export_asset_path, $runtime_asset_path, $html);
+    }
+
     $settings = ft_next_homepage_settings();
     $seo_title = $settings['seo_title'];
     $seo_description = $settings['seo_description'];

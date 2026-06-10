@@ -1,2 +1,2 @@
-:HL["/floorstoday/public/_next/static/chunks/01xjf8kahejws.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"Cgx6lxkKQmTJh7F2UEoME"}
+:HL["/public/_next/static/chunks/01xjf8kahejws.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"vbeDNQ9LnGmgSsrKLkD5y"}

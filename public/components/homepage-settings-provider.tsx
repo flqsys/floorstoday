@@ -16,9 +16,17 @@ import {
   type HomepageSettings,
 } from "@/lib/homepage-settings"
 
-const endpoint =
-  process.env.NEXT_PUBLIC_WORDPRESS_HOMEPAGE_ENDPOINT ||
-  "/wp-json/floors-today/v1/homepage"
+function wordpressEndpoint(path: string) {
+  if (typeof window === "undefined") return path
+
+  const publicMarker = "/public/"
+  const publicIndex = window.location.pathname.indexOf(publicMarker)
+  const installPath = publicIndex >= 0
+    ? window.location.pathname.slice(0, publicIndex)
+    : window.location.pathname.replace(/\/$/, "")
+
+  return `${installPath}${path}`
+}
 
 declare global {
   interface Window {
@@ -52,7 +60,7 @@ export function HomepageSettingsProvider({ children }: { children: ReactNode }) 
   useEffect(() => {
     let alive = true
 
-    fetch(endpoint, { cache: "no-store" })
+    fetch(wordpressEndpoint("/wp-json/floors-today/v1/homepage"), { cache: "no-store" })
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Homepage settings request failed: ${response.status}`)
